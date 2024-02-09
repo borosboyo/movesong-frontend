@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://borosboyo.github.io/movesong-frontend/",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -32,12 +33,17 @@
     "@typescript-eslint/parser": "^6.21.0",
     "@vitejs/plugin-react": "^4.2.1",
     "eslint": "^8.56.0",
+    "eslint-config-standard-with-typescript": "^43.0.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "husky": "^9.0.10",
     "lint-staged": "^15.2.2",
     "prettier": "^3.2.5",
-    "typescript": "^5.2.2",
+    "typescript": "^5.3.3",
     "vite": "^5.1.0"
   }
 }
