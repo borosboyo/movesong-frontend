@@ -1,6 +1,6 @@
 import { Sheet, SheetContent, SheetTrigger } from '@/shared/components/ui/sheet.tsx';
 import { Button } from '@/shared/components/ui/button.tsx';
-import { MenuItems } from '@/modules/navbar/menu/menu-items.tsx';
+import { MenuItems } from '@/shared/navbar/menu/menu-items.tsx';
 import MenuIcon from '@/shared/icons/menu-icon.tsx';
 import { useTranslation } from 'react-i18next';
 import { useTextTheme } from '@/core/theme/hooks/useTextTheme.ts';

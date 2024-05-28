@@ -1,4 +1,4 @@
-import { Button } from "@/shared/components/ui/button";
+import { Button } from "@/shared/components/ui/button.tsx";
 
 export function Footer () {
     return (

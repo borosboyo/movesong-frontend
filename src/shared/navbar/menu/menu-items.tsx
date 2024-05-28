@@ -2,7 +2,7 @@
 
 import * as React from "react"
 
-import { cn } from "@/core/lib/utils"
+import { cn } from "@/core/lib/utils.ts"
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -11,7 +11,7 @@ import {
     NavigationMenuList,
     NavigationMenuTrigger,
     navigationMenuTriggerStyle,
-} from "@/shared/components/ui/navigation-menu"
+} from "@/shared/components/ui/navigation-menu.tsx"
 import { ThemeToggle } from '@/core/theme/theme-toggle.tsx';
 import { TranslationToggle } from '@/core/translation/translation-toggle.tsx';
 import { useTranslation } from 'react-i18next';
@@ -28,7 +28,7 @@ const components: { title: string; href: string; description: string }[] = [
             "A modal dialog that interrupts the user with important content and expects a response.",
     },
     {
-        title: "Hover Card",
+        title: "Hover Panel",
         href: "/docs/primitives/hover-card",
         description:
             "For sighted users to preview content available behind a link.",
@@ -74,22 +74,21 @@ export function MenuItems(props: {type: string}) {
                                         className={`flex h-full w-full select-none flex-col justify-end rounded-md from-muted/50 to-muted p-6 no-underline outline-none `}
                                         href="/">
                                         <div className={`mb-2 mt-4 text-lg font-medium`}>
-                                            shadcn/ui
+                                            lorem ipsum
                                         </div>
                                         <p className={`text-sm leading-tight text-muted-foreground`}>
-                                            Beautifully designed components built with Radix UI and
-                                            Tailwind CSS.
+                                            Nullam sed ipsum in odio euismod mollis at in orci. Cras eu molestie turpis.
                                         </p>
                                     </NavigationMenuLink>
                                 </li>
-                                <ListItem href="/docs" title="Introduction">
-                                    Re-usable components built using Radix UI and Tailwind CSS.
+                                <ListItem href="/docs" title="Sample Text">
+                                    Nullam sed ipsum in odio euismod mollis at in orci.
                                 </ListItem>
-                                <ListItem href="/docs/installation" title="Installation">
-                                    How to install dependencies and structure your app.
+                                <ListItem href="/docs/installation" title="Sample Text">
+                                    Nullam sed ipsum in odio euismod mollis at in orci.
                                 </ListItem>
-                                <ListItem href="/docs/primitives/typography" title="Typography">
-                                    Styles for headings, paragraphs, lists...etc
+                                <ListItem href="/docs/primitives/typography" title="Sample Text">
+                                    Nullam sed ipsum in odio euismod mollis at in orci.
                                 </ListItem>
                             </ul>
                         </NavigationMenuContent>
