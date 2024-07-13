@@ -1,46 +1,69 @@
 import Navbar from '@/shared/navbar/navbar.tsx';
-import LandingBackground from '@/modules/landing/landing-background.tsx';
+import { Footer } from '@/shared/footer/footer.tsx';
+import { LandingTitle } from '@/modules/landing/components/landing-title.tsx';
 import {
-  TransferPanel,
-  ContactPanel, FAQPanel,
+  ContactPanel,
+  FAQPanel,
+  FinishTransferPanel,
   ForgotPasswordPanel,
   ForgotPasswordPanelWithOtp,
   LoginPanel,
-  LoginPanelWithPassword, PremiumPanel,
+  LoginPanelWithPassword,
+  PremiumPanel,
+  ProfilePanel,
+  ProgressBar,
   RegisterPanel,
   RegisterPanelWithData,
-  SkeletonComponent, ToastComponent, FinishTransferPanel, SharePanel, ProgressBar, ProfilePanel,
+  SharePanel,
+  SkeletonComponent,
+  ToastComponent,
+  TransferPanel,
 } from '@/shared/panel/panel.tsx';
 import { LoadingSpinner } from '@/shared/components/util/spinner.tsx';
-import { Footer } from '@/shared/footer/footer.tsx';
+import '@/modules/landing/landing.css';
+import { LandingIntroduction } from '@/modules/landing/components/landing-introduction.tsx';
+import { LandingWaveContent } from '@/modules/landing/components/landing-wave-content.tsx';
+import { LandingPopularPlatforms } from '@/modules/landing/components/landing-popular-platforms.tsx';
+import { TopWaveSeparator } from '@/shared/components/ui/wave-separator.tsx';
 
 export default function Landing() {
   return (
     <>
       <Navbar />
-      <LandingBackground />
-      <div className={`flex justify-center  items-center`}>
-        <div className={`flex-col grid gap-4 justify-center`}>
-          <LoadingSpinner size={50} />
-          <ToastComponent />
-          <SkeletonComponent />
-          <LoginPanel />
-          <LoginPanelWithPassword />
-          <RegisterPanel />
-          <RegisterPanelWithData />
-          <ForgotPasswordPanel />
-          <ForgotPasswordPanelWithOtp />
-          <PremiumPanel />
-          <ContactPanel />
-          <FAQPanel />
-          <TransferPanel />
-          <FinishTransferPanel />
-          <ProgressBar />
-          <SharePanel />
-          <ProfilePanel />
+      <div className={`flex justify-center items-center w-full`}>
+        <div className={`flex flex-col items-center justify-center w-full mx-auto`}>
+          <LandingTitle />
+          <LandingIntroduction />
+          <LandingWaveContent />
+          <LandingPopularPlatforms />
+          <TopWaveSeparator flip={true} />
           <Footer />
         </div>
       </div>
+    </>
+  );
+}
+
+export function Test() {
+  return (
+    <>
+      <LoadingSpinner size={50} />
+      <ToastComponent />
+      <SkeletonComponent />
+      <LoginPanel />
+      <LoginPanelWithPassword />
+      <RegisterPanel />
+      <RegisterPanelWithData />
+      <ForgotPasswordPanel />
+      <ForgotPasswordPanelWithOtp />
+      <PremiumPanel />
+      <ContactPanel />
+      <FAQPanel />
+      <TransferPanel />
+      <FinishTransferPanel />
+      <ProgressBar />
+      <SharePanel />
+      <ProfilePanel />
     </>
   );
 }

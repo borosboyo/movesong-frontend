@@ -13,12 +13,9 @@ import {
     navigationMenuTriggerStyle,
 } from "@/shared/components/ui/navigation-menu.tsx"
 import { ThemeToggle } from '@/core/theme/theme-toggle.tsx';
-import { TranslationToggle } from '@/core/translation/translation-toggle.tsx';
+import { I18nToggle } from '@/core/i18n/i18n-toggle.tsx';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/shared/components/ui/button.tsx';
-import { useTextTheme } from '@/core/theme/hooks/useTextTheme.ts';
-import { useButtonTheme } from '@/core/theme/hooks/useButtonTheme.ts';
-import { useButtonTextTheme } from '@/core/theme/hooks/useButtonTextTheme.ts';
 
 const components: { title: string; href: string; description: string }[] = [
     {
@@ -65,8 +62,8 @@ export function MenuItems(props: {type: string}) {
         <NavigationMenu>
             <NavigationMenuList>
                 <div className={props.type}>
-                    <NavigationMenuItem className={`mr-5`}>
-                        <NavigationMenuTrigger className={`${useTextTheme()} rounded-xl`}>{t('navbarActions')}</NavigationMenuTrigger>
+                    <NavigationMenuItem className={`transition-transform hover:scale-105 mr-5`}>
+                        <NavigationMenuTrigger className={` transition-transform hover:scale-105 rounded-xl`}>{t('navbar.actions')}</NavigationMenuTrigger>
                         <NavigationMenuContent>
                             <ul className={`grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]`}>
                                 <li className={`row-span-3`}>
@@ -93,8 +90,8 @@ export function MenuItems(props: {type: string}) {
                             </ul>
                         </NavigationMenuContent>
                     </NavigationMenuItem>
-                    <NavigationMenuItem className={`mr-5`}>
-                        <NavigationMenuTrigger className={`${useTextTheme()} rounded-xl`}>{t('navbarPlans')}</NavigationMenuTrigger>
+                    <NavigationMenuItem className={`transition-transform hover:scale-105 mr-5`}>
+                        <NavigationMenuTrigger className={` rounded-xl`}>{t('navbar.plans')}</NavigationMenuTrigger>
                         <NavigationMenuContent>
                             <ul className={`grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] `}>
                                 {components.map((component) => (
@@ -109,22 +106,22 @@ export function MenuItems(props: {type: string}) {
                             </ul>
                         </NavigationMenuContent>
                     </NavigationMenuItem>
-                    <NavigationMenuItem className={`mr-5 rounded-xl`}>
+                    <NavigationMenuItem className={`transition-transform hover:scale-105 mr-5 rounded-xl`}>
                         <NavigationMenuLink href="/docs" className={`${navigationMenuTriggerStyle()} rounded-xl`}>
-                            <p className={`${useTextTheme()}`}>{t('navbarHelp')}</p>
+                            <p>{t('navbar.help')}</p>
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                     <div className={`relative inline-flex group mr-4`}>
                         <div
-                            className={`absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#C0C0C0] via-[#C0C0C0] to-[#C0C0C0] rounded-xl blur-lg group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-tilt`}>
+                            className={`absolute transition-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#FF5003] via-[#FF5003] to-[#FF5003] rounded-xl blur-lg group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-tilt`}>
                         </div>
                         <Button
-                                className={`relative inline-flex items-center justify-center px-7 py-4 font-bold text-white transition-all duration-200 font-pj rounded-xl focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-gray-900 ${useButtonTheme()} hover:${useButtonTheme()}`}>
-                            <p className={`${useButtonTextTheme()}`}>{t('navbarLogin')}</p>
+                                className={`hover:bg-[#FF5003] hover:scale-105 relative inline-flex items-center justify-center px-7 py-4 font-bold text-white transition-all duration-200 font-pj rounded-xl focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-gray-900`}>
+                            <p>{t('navbar.login')}</p>
                         </Button>
                     </div>
                     <ThemeToggle />
-                    <TranslationToggle />
+                    <I18nToggle />
                 </div>
             </NavigationMenuList>
         </NavigationMenu>

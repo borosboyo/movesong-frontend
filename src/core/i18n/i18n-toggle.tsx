@@ -3,13 +3,13 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Avatar, AvatarFallback, AvatarImage } from '@/shared/components/ui/avatar';
 import { useTranslation } from 'react-i18next';
 
-export function TranslationToggle() {
+export function I18nToggle() {
     const { i18n } = useTranslation();
 
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon">
+                <Button className={`focus-visible:ring-0 transition-transform hover:scale-105 hover:bg-transparent`} variant="ghost" size="icon">
                     {i18n.language === 'en'
                         ? <Avatar className={`h-[1.5rem] w-[1.5rem]`}>
                             <AvatarImage asChild src="/src/assets/en.png">

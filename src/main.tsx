@@ -7,7 +7,7 @@ import {
 import App from './App.tsx'
 import Error from './core/error/error.component.tsx'
 import './index.css'
-import '@/core/translation/i18n-config.ts'
+import '@/core/i18n/i18n-config.ts'
 
 const router = createBrowserRouter([
     {

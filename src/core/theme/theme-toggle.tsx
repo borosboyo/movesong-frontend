@@ -4,8 +4,6 @@ import { Button } from '@/shared/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/shared/components/ui/dropdown-menu';
 import { useTheme } from '@/core/theme/theme-provider.tsx';
 import { useTranslation } from 'react-i18next';
-import { useTextTheme } from '@/core/theme/hooks/useTextTheme.ts';
-import { useBgTheme } from '@/core/theme/hooks/useBgTheme.ts';
 
 export function ThemeToggle() {
     const { setTheme } = useTheme();
@@ -15,19 +13,19 @@ export function ThemeToggle() {
         <div className={`mr-5`}>
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon">
-                        <Sun className={`h-[1.5rem] w-[1.5rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 ${useTextTheme()}`} />
-                        <Moon className={`absolute h-[1.5rem] w-[1.5rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 ${useTextTheme()}`} />
+                    <Button className={`transition-transform hover:scale-105 focus-visible:ring-0 hover:bg-transparent`} variant="ghost" size="icon">
+                        <Sun color={`white`} className={`h-[1.5rem] w-[1.5rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0`} />
+                        <Moon className={`absolute h-[1.5rem] w-[1.5rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 `} />
                     </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className={`${useBgTheme()}`} align="end">
-                    <DropdownMenuLabel className={`${useTextTheme()}`}>{t('navbarThemeToggleTitle')}</DropdownMenuLabel>
+                <DropdownMenuContent className={``} align="end">
+                    <DropdownMenuLabel className={``}>{t('theme.toggleTitle')}</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem className={`${useTextTheme()}`} onClick={() => setTheme('light')}>
-                        <p className={`${useTextTheme()}`}>{t('themeLight')}</p>
+                    <DropdownMenuItem className={``} onClick={() => setTheme('light')}>
+                        <p className={``}>{t('theme.light')}</p>
                     </DropdownMenuItem>
-                    <DropdownMenuItem className={`${useTextTheme()}`} onClick={() => setTheme('dark')}>
-                        <p className={`${useTextTheme()}`}>{t('themeDark')}</p>
+                    <DropdownMenuItem className={``} onClick={() => setTheme('dark')}>
+                        <p className={``}>{t('theme.dark')}</p>
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>

@@ -1,0 +1,13 @@
+.titleLight {
+    background: linear-gradient(to right, #FF5003 0%, #FF8E00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding-bottom: 10px;
+}
+
+.titleDark {
+    background: linear-gradient(to right, #FF5003 0%, #FF8E00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding-bottom: 10px;
+}
