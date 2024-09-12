@@ -1,7 +1,7 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/shared/components/ui/card.tsx';
 import { Separator } from '@/shared/components/ui/separator.tsx';
 import { PanelContainer } from '@/shared/panel/panel-container.tsx';
-import { ProfileTabs } from '@/shared/panel/profile-tabs/profile-tabs.tsx';
+import { ProfileTabs } from '@/modules/profile/profile-tabs/profile-tabs.tsx';
 
 export function ProfilePanel() {
   return (
