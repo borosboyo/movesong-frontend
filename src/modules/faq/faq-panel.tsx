@@ -1,9 +1,10 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/shared/components/ui/card.tsx';
 import { FaqAccordion } from '@/modules/faq/faq-accordion.tsx';
+import { PanelContainer } from '@/shared/panel/panel-container.tsx';
 
 export function FaqPanel() {
   return (
-    <div className={`flex-grow flex justify-center items-center w-full my-20`}>
+    <PanelContainer>
       <Card className={`w-3/5`}>
         <CardHeader>
           <CardTitle className={`flex scroll-m-20 text-5xl font-extrabold tracking-tight lg:text-5xl`}>Frequently Asked Questions</CardTitle>
@@ -14,7 +15,7 @@ export function FaqPanel() {
           <FaqAccordion/>
         </CardContent>
       </Card>
-    </div>
+    </PanelContainer>
   );
 }
 

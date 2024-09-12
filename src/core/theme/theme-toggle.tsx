@@ -13,7 +13,7 @@ export function ThemeToggle() {
         <div className={`mr-5`}>
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Button className={`transition-transform hover:scale-105 focus-visible:ring-0 hover:bg-transparent`} variant="ghost" size="icon">
+                    <Button className={` focus-visible:ring-0 hover:bg-transparent transition-transform hover:scale-105`} variant="ghost" size="icon">
                         <Sun color={`white`} className={`h-[1.5rem] w-[1.5rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0`} />
                         <Moon className={`absolute h-[1.5rem] w-[1.5rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 `} />
                     </Button>

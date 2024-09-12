@@ -16,7 +16,7 @@ export function LandingTitle() {
         </h1>
         <LogoRibbon />
         <span className={`text-3xl font-bold max-w-3xl text-white`}>{t('landingTitle.subtitle')}</span>
-        <Button className={`hover:bg-[#FF5003] w-64 py-5 rounded-2xl transition-transform hover:scale-105 mt-10`}>
+        <Button className={`hover:bg-[#FF5003] w-64 py-5 rounded-2xl  mt-10`}>
           <div className={`text-xl font-bold bigger-button-text`}>{t('landingTitle.button')}</div>
         </Button>
       </div>

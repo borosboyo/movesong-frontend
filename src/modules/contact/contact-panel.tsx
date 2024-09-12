@@ -4,10 +4,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Input } from '@/shared/components/ui/input.tsx';
 import { Textarea } from '@/shared/components/ui/textarea.tsx';
 import { Button } from '@/shared/components/ui/button.tsx';
+import { PanelContainer } from '@/shared/panel/panel-container.tsx';
 
 export function ContactPanel() {
   return (
-    <div className={`flex-grow flex justify-center items-center w-full my-20`}>
+    <PanelContainer>
       <Card className={`w-2/5`}>
         <CardHeader>
           <CardTitle className={`flex scroll-m-20 text-5xl font-extrabold tracking-tight lg:text-5xl`}>Contact us</CardTitle>
@@ -45,10 +46,10 @@ export function ContactPanel() {
             </div>
           </form>
         </CardContent>
-        <CardFooter className={`flex-col grid gap-2 items-start`}>
-          <Button className={`hover:bg-[#FF5003] transition-transform hover:scale-105 flex-row w-full gap-2`}>Send</Button>
+        <CardFooter className={`flex justify-center items-center w-full`}>
+          <Button className={`primaryButton rounded-xl max-w-[30%]  flex-row w-full gap-2`}>Send</Button>
         </CardFooter>
       </Card>
-    </div>
+    </PanelContainer>
   );
 }
