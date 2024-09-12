@@ -24,10 +24,10 @@ export default function Footer() {
         <h3 className={`scroll-m-20 text-2xl tracking-tight lg:text-md text-white`}>{t('footer.subtitle')}</h3>
       </div>
       <div className={`flex mt-2 gap-5 justify-center mx-2`}>
-        <Button onClick={handleFaqClick} className={`hover:bg-[#FF5003] w-64 py-5 rounded-xl transition-transform hover:scale-105`}>
+        <Button onClick={handleFaqClick} className={`primaryButton w-64 py-5 rounded-xl`}>
           <div className={`text-lg font-bold`}>{t('footer.faqButton')}</div>
         </Button>
-        <Button onClick={handleContactClick} className={`hover:bg-[#FF5003] w-64 py-5 rounded-xl transition-transform hover:scale-105`}>
+        <Button onClick={handleContactClick} className={`primaryButton w-64 py-5 rounded-xl`}>
           <div className={`text-lg font-bold`}>{t('footer.contactUsButton')}</div>
         </Button>
       </div>

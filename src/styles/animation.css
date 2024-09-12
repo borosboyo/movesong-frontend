@@ -37,7 +37,13 @@
     transform: translateY(20px);
 }
 
-.primaryButtonHover:hover {
+/* src/styles/animation.css */
+.primaryButton {
+    transition: transform 0.3s ease;
+}
+
+.primaryButton:hover {
+    transform: scale(1.05);
     background: #FF5003;
     color: #fff;
 }
