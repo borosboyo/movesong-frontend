@@ -7,8 +7,6 @@ import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@/shar
 import { Skeleton } from '@/shared/components/ui/skeleton.tsx';
 import { useToast } from '@/shared/components/ui/use-toast.ts';
 import DiamondIcon from '@/shared/icons/diamond-icon.tsx';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shared/components/ui/select.tsx';
-import { Textarea } from '@/shared/components/ui/textarea.tsx';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/shared/components/ui/collapsible.tsx';
 import { CaretSortIcon, CrossCircledIcon } from '@radix-ui/react-icons';
 import React, { useEffect, useState } from 'react';
@@ -240,99 +238,6 @@ export function PremiumPanel() {
 
       </CardFooter>
     </Card>
-  );
-}
-
-
-export function ContactPanel() {
-  return (
-    <Card className={`w-[400px]`}>
-      <CardHeader>
-        <CardTitle className={`flex justify-center scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>Contact us</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <form>
-          <div className={`grid w-full items-center gap-3`}>
-            <div className={`flex flex-col space-y-1.5`}>
-              <Label htmlFor={`subject`}>Subject</Label>
-              <Select>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select a subject" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="1">Suggestion</SelectItem>
-                  <SelectItem value="2">Feedback</SelectItem>
-                  <SelectItem value="3">Problem</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className={`flex flex-col space-y-1.5`}>
-              <Label htmlFor={`name`}>Your Name</Label>
-              <Input id={`name`} />
-            </div>
-            <div className={`flex flex-col space-y-1.5`}>
-              <Label htmlFor={`email`}>Your Email</Label>
-              <Input id={`email`} />
-            </div>
-            <div className={`flex flex-col space-y-1.5`}>
-              <Label htmlFor={`message`}>Message</Label>
-              <Textarea id={`message`} placeholder="Type your message here." />
-            </div>
-          </div>
-        </form>
-      </CardContent>
-      <CardFooter className={`flex-col grid gap-2 items-start`}>
-        <Button className={`flex-row w-full gap-2`}>Send</Button>
-      </CardFooter>
-    </Card>
-  );
-}
-
-
-export function FAQPanel() {
-  return (
-    <Card className={`w-[500px]`}>
-      <CardHeader>
-        <CardTitle className={`flex scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>Frequently Asked Questions</CardTitle>
-        <CardDescription>Nullam sed ipsum in odio euismod mollis at in orci. Cras eu molestie turpis. Integer ultrices urna vitae tellus ultrices, egestas tristique nisl volutpat.
-          Nulla facilisi. </CardDescription>
-      </CardHeader>
-      <CardContent className={`flex flex-col gap-5`}>
-        <Question />
-        <Question />
-        <Question />
-        <Question />
-        <Question />
-      </CardContent>
-    </Card>
-  );
-}
-
-export function Question() {
-  const [isOpen, setIsOpen] = React.useState(false);
-
-  return (
-    <Collapsible
-      open={isOpen}
-      onOpenChange={setIsOpen}
-      className="space-y-2"
-    >
-      <div className="flex flex-row gap-2 items-center">
-        <h4 className="text-sm font-semibold">
-          Can I ask a question?
-        </h4>
-        <CollapsibleTrigger asChild>
-          <Button variant="ghost" size="sm">
-            <CaretSortIcon className="h-4 w-4" />
-            <span className="sr-only">Toggle</span>
-          </Button>
-        </CollapsibleTrigger>
-      </div>
-      <CollapsibleContent className="space-y-2">
-        <CardDescription>Nullam sed ipsum in odio euismod mollis at in orci. Cras eu molestie turpis. Integer ultrices urna vitae tellus ultrices, egestas tristique nisl volutpat.
-          Nulla facilisi. </CardDescription>
-      </CollapsibleContent>
-    </Collapsible>
   );
 }
 

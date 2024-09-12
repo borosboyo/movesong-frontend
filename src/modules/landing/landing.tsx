@@ -1,9 +1,6 @@
-import Navbar from '@/shared/navbar/navbar.tsx';
-import { Footer } from '@/shared/footer/footer.tsx';
 import { LandingTitle } from '@/modules/landing/components/landing-title.tsx';
 import {
   ContactPanel,
-  FAQPanel,
   FinishTransferPanel,
   ForgotPasswordPanel,
   ForgotPasswordPanelWithOtp,
@@ -25,11 +22,11 @@ import { LandingIntroduction } from '@/modules/landing/components/landing-introd
 import { LandingWaveContent } from '@/modules/landing/components/landing-wave-content.tsx';
 import { LandingPopularPlatforms } from '@/modules/landing/components/landing-popular-platforms.tsx';
 import { TopWaveSeparator } from '@/shared/components/ui/wave-separator.tsx';
+import { FaqPanel } from '@/modules/faq/faq-panel.tsx';
 
 export default function Landing() {
   return (
     <>
-      <Navbar />
       <div className={`flex justify-center items-center w-full`}>
         <div className={`flex flex-col items-center justify-center w-full mx-auto`}>
           <LandingTitle />
@@ -37,7 +34,6 @@ export default function Landing() {
           <LandingWaveContent />
           <LandingPopularPlatforms />
           <TopWaveSeparator flip={true} />
-          <Footer />
         </div>
       </div>
     </>
@@ -58,7 +54,7 @@ export function Test() {
       <ForgotPasswordPanelWithOtp />
       <PremiumPanel />
       <ContactPanel />
-      <FAQPanel />
+      <FaqPanel />
       <TransferPanel />
       <FinishTransferPanel />
       <ProgressBar />

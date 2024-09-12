@@ -55,7 +55,7 @@ const components: { title: string; href: string; description: string }[] = [
     },
 ]
 
-export function MenuItems(props: {type: string}) {
+export function MenuItems(props: Readonly<{ type: string }>) {
     const { t} = useTranslation();
 
     return (
@@ -107,7 +107,7 @@ export function MenuItems(props: {type: string}) {
                         </NavigationMenuContent>
                     </NavigationMenuItem>
                     <NavigationMenuItem className={`transition-transform hover:scale-105 mr-5 rounded-xl`}>
-                        <NavigationMenuLink href="/docs" className={`${navigationMenuTriggerStyle()} rounded-xl`}>
+                        <NavigationMenuLink href={"/movesong-frontend/faq"} className={`${navigationMenuTriggerStyle()} select-none rounded-xl`}>
                             <p>{t('navbar.help')}</p>
                         </NavigationMenuLink>
                     </NavigationMenuItem>
