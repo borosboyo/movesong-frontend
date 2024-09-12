@@ -1,8 +1,8 @@
 import { Tabs, TabsList, TabsTrigger } from '@/shared/components/ui/tabs.tsx';
-import { AccountTab } from '@/shared/panel/profile-tabs/account-tab.tsx';
-import { SyncTab } from '@/shared/panel/profile-tabs/sync-tab.tsx';
-import { SharesTab } from '@/shared/panel/profile-tabs/shares-tab.tsx';
-import { HistoryTab } from '@/shared/panel/profile-tabs/history-tab.tsx';
+import { AccountTab } from '@/modules/profile/profile-tabs/account-tab.tsx';
+import { SyncTab } from '@/modules/profile/profile-tabs/sync-tab.tsx';
+import { SharesTab } from '@/modules/profile/profile-tabs/shares-tab.tsx';
+import { HistoryTab } from '@/modules/profile/profile-tabs/history-tab.tsx';
 
 export function ProfileTabs() {
   return (

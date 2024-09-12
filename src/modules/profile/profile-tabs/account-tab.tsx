@@ -31,7 +31,7 @@ export function AccountTab() {
         <div className={`grid w-full grid-cols-2`}>
           <span className={`w scroll-m-20 text-l font-extrabold tracking-tight lg:text-l`}>Connections</span>
           <div className={`flex w-auto justify-end`}>
-            <Button>New connection</Button>
+            <Button className={`primaryButton`}>New connection</Button>
           </div>
         </div>
         <div className={`flex justify-center items-center`}>
