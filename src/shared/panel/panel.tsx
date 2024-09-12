@@ -288,54 +288,6 @@ export function ContactPanel() {
   );
 }
 
-
-export function FAQPanel() {
-  return (
-    <Card className={`w-[500px]`}>
-      <CardHeader>
-        <CardTitle className={`flex scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>Frequently Asked Questions</CardTitle>
-        <CardDescription>Nullam sed ipsum in odio euismod mollis at in orci. Cras eu molestie turpis. Integer ultrices urna vitae tellus ultrices, egestas tristique nisl volutpat.
-          Nulla facilisi. </CardDescription>
-      </CardHeader>
-      <CardContent className={`flex flex-col gap-5`}>
-        <Question />
-        <Question />
-        <Question />
-        <Question />
-        <Question />
-      </CardContent>
-    </Card>
-  );
-}
-
-export function Question() {
-  const [isOpen, setIsOpen] = React.useState(false);
-
-  return (
-    <Collapsible
-      open={isOpen}
-      onOpenChange={setIsOpen}
-      className="space-y-2"
-    >
-      <div className="flex flex-row gap-2 items-center">
-        <h4 className="text-sm font-semibold">
-          Can I ask a question?
-        </h4>
-        <CollapsibleTrigger asChild>
-          <Button variant="ghost" size="sm">
-            <CaretSortIcon className="h-4 w-4" />
-            <span className="sr-only">Toggle</span>
-          </Button>
-        </CollapsibleTrigger>
-      </div>
-      <CollapsibleContent className="space-y-2">
-        <CardDescription>Nullam sed ipsum in odio euismod mollis at in orci. Cras eu molestie turpis. Integer ultrices urna vitae tellus ultrices, egestas tristique nisl volutpat.
-          Nulla facilisi. </CardDescription>
-      </CollapsibleContent>
-    </Collapsible>
-  );
-}
-
 export function SourceCard() {
   return <Card>
     <CardContent className="aspect-square justify-center p-6">

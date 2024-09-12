@@ -1,24 +1,11 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import {
-    createBrowserRouter,
-    RouterProvider,
-} from "react-router-dom";
-import App from './App.tsx'
-import Error from './core/error/error.component.tsx'
-import './index.css'
-import '@/core/i18n/i18n-config.ts'
-
-const router = createBrowserRouter([
-    {
-        path: "/movesong-frontend",
-        element: <App/>,
-        errorElement: <Error />,
-    },
-]);
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import '@/core/i18n/i18n-config.ts';
+import App from './core/app/app';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-      <RouterProvider router={router} />
+    <App />
   </React.StrictMode>,
-)
+);
