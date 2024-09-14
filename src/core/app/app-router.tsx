@@ -1,4 +1,4 @@
-import { Navigate, RouteObject } from 'react-router-dom';
+import { RouteObject } from 'react-router-dom';
 import Landing from '@/modules/landing/landing.tsx';
 import AppLayout from '@/core/app/app-layout.tsx';
 import { FaqPanel } from '@/modules/faq/faq-panel.tsx';
@@ -12,14 +12,20 @@ import { ForgotPasswordOtpPanel } from '@/modules/auth/forgot-password/forgot-pa
 import { ForgotPasswordChangePanel } from '@/modules/auth/forgot-password/forgot-password-change-panel.tsx';
 import { RegisterConfirmEmailPanel } from '@/modules/auth/register/register-confirm-email-panel.tsx';
 import { ProfilePanel } from '@/modules/profile/profile-panel.tsx';
+import { TransferPanel } from '@/modules/transfer/transfer-panel.tsx';
+import { FinishPanel } from '@/modules/transfer/finish-panel.tsx';
+import ErrorPanel from '@/core/error/error.component.tsx';
 
 const RouterBuilder = () => {
 
-  const generalRoutes: RouteObject[] = [
+  const errorRoute: RouteObject[] = [
     {
-      path: '*',
-      element: <Navigate to="/" replace />,
+      path: '*', // Catch-all route for undefined paths
+      element: <ErrorPanel />,
     },
+  ];
+
+  const generalRoutes: RouteObject[] = [
     {
       path: '/movesong-frontend',
       element: <Landing />,
@@ -35,6 +41,14 @@ const RouterBuilder = () => {
     {
       path: '/movesong-frontend/profile',
       element: <ProfilePanel />,
+    },
+    {
+      path: 'movesong-frontend/transfer',
+      element: <TransferPanel />,
+    },
+    {
+      path: 'movesong-frontend/transfer/finish',
+      element: <FinishPanel />,
     },
   ];
 
@@ -83,11 +97,13 @@ const RouterBuilder = () => {
     {
       element: <AppLayout />,
       children: [
+        ...errorRoute,
         ...generalRoutes,
         ...loginRoutes,
         ...forgotPasswordRoutes,
         ...registerRoutes,
       ],
+
     },
   ];
 
