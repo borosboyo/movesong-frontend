@@ -37,27 +37,6 @@ export function ToastComponent() {
 }
 
 
-export function PremiumPanel() {
-  return (
-    <Card className={`w-[350px]`}>
-      <CardHeader>
-        <CardTitle className={`flex scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>Switch to Premium!</CardTitle>
-      </CardHeader>
-      <CardContent className={`flex-col grid gap-4`}>
-        <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}><DiamondIcon /> Unlimited transfer</CardTitle>
-        <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}><DiamondIcon /> Unlimited transfer</CardTitle>
-        <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}><DiamondIcon /> Export to TXT / CSV</CardTitle>
-        <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}><DiamondIcon /> Playlist synchronization</CardTitle>
-      </CardContent>
-      <CardFooter className={`flex-col grid gap-2 items-start`}>
-        <Button className={`flex-row w-full gap-2`}>$ 0.00 / month</Button>
-        <Button className={`flex-row w-full gap-2`}>$ 0.00 / year</Button>
-      </CardFooter>
-    </Card>
-  );
-}
-
-
 
 export function SharePanel() {
   return <Card className={`w-[400px]`}>
