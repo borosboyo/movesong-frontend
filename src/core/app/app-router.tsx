@@ -15,6 +15,7 @@ import { ProfilePanel } from '@/modules/profile/profile-panel.tsx';
 import { TransferPanel } from '@/modules/transfer/transfer-panel.tsx';
 import { FinishPanel } from '@/modules/transfer/finish-panel.tsx';
 import ErrorPanel from '@/core/error/error.component.tsx';
+import PremiumPanel from '@/modules/premium/premium-panel.tsx';
 
 const RouterBuilder = () => {
 
@@ -43,13 +44,17 @@ const RouterBuilder = () => {
       element: <ProfilePanel />,
     },
     {
-      path: 'movesong-frontend/transfer',
+      path: '/movesong-frontend/transfer',
       element: <TransferPanel />,
     },
     {
-      path: 'movesong-frontend/transfer/finish',
+      path: '/movesong-frontend/transfer/finish',
       element: <FinishPanel />,
     },
+    {
+      path: '/movesong/frontend/premium',
+      element: <PremiumPanel />
+    }
   ];
 
   const loginRoutes: RouteObject[] = [
