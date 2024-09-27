@@ -1,6 +1,7 @@
 import { TabsContent } from '@/shared/components/ui/tabs.tsx';
 import { Card, CardContent, CardFooter, CardHeader } from '@/shared/components/ui/card.tsx';
 import { Button } from '@/shared/components/ui/button.tsx';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover.tsx';
 
 export function AccountTab() {
   return <TabsContent value="account">
@@ -48,7 +49,20 @@ export function AccountTab() {
           <div className={`flex-col`}>
             <Button variant={`ghost`}>Change password</Button>
             <Button variant={`ghost`}>Logout</Button>
-            <Button variant={`ghost`} className={`text-red-500`}>Delete account</Button>
+            <Popover>
+              <PopoverTrigger>
+                <Button variant={`ghost`} className={`text-red-500`}>Delete account</Button>
+              </PopoverTrigger>
+              <PopoverContent>
+                <div className={`flex flex-col gap-3`}>
+                  <span className={`w scroll-m-20 text-l font-extrabold tracking-tight lg:textl`}>Are you sure?</span>
+                  <span className={`w scroll-m-20 text-s font-light tracking-tight lg:text-s`}>This action cannot be undone.</span>
+                  <div className={`flex justify-end gap-3`}>
+                    <Button variant={`destructive`}>Delete</Button>
+                  </div>
+                </div>
+              </PopoverContent>
+            </Popover>
           </div>
         </div>
       </CardFooter>

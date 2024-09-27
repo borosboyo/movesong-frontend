@@ -3,10 +3,25 @@ import { Label } from '@/shared/components/ui/label.tsx';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shared/components/ui/select.tsx';
 import { Input } from '@/shared/components/ui/input.tsx';
 import { Textarea } from '@/shared/components/ui/textarea.tsx';
-import { Button } from '@/shared/components/ui/button.tsx';
 import { PanelContainer } from '@/shared/panel/panel-container.tsx';
+import { useState } from 'react';
+import { useLoading } from '@/shared/hooks/useLoading.tsx';
+import { useToast } from '@/shared/components/ui/use-toast.ts';
+import { LoadingButton } from '@/shared/components/util/loading-button.tsx';
 
 export function ContactPanel() {
+  const [loading, setLoading] = useState(false);
+  const progress = useLoading(loading);
+  const { toast } = useToast();
+
+  const handleContact = () => {
+    toast({
+      title: 'Thank you!',
+      description: 'Your message has been sent.',
+      variant: 'success',
+    });
+  }
+
   return (
     <PanelContainer>
       <Card className={`w-2/5`}>
@@ -47,7 +62,13 @@ export function ContactPanel() {
           </form>
         </CardContent>
         <CardFooter className={`flex justify-center items-center w-full`}>
-          <Button className={`primaryButton rounded-xl max-w-[30%]  flex-row w-full gap-2`}>Send</Button>
+          <LoadingButton
+            className={`primaryButton rounded-xl w-1/5`}
+            loading={loading}
+            progress={progress}
+            onClick={handleContact}
+            buttonText={`Send`}
+          />
         </CardFooter>
       </Card>
     </PanelContainer>

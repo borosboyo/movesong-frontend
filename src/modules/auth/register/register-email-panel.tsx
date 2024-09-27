@@ -4,12 +4,31 @@ import { Button } from '@/shared/components/ui/button.tsx';
 import EmailIcon from '@/shared/icons/email-icon.tsx';
 import { useNavigate } from 'react-router-dom';
 import { PanelContainer } from '@/shared/panel/panel-container.tsx';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/shared/components/ui/form.tsx';
+
+const RegisterEmailSchema = z.object({
+  email: z
+    .string()
+    .min(2, { message: "Email must be a valid email.", })
+    .email(),
+})
 
 export function RegisterEmailPanel() {
   const navigate = useNavigate();
 
-  const handleContinueClick = () => {
-    navigate('/movesong-frontend/register/password');
+  const form = useForm<z.infer<typeof RegisterEmailSchema>>({
+    resolver: zodResolver(RegisterEmailSchema),
+    defaultValues: {
+      email: "",
+    },
+  })
+
+  function onSubmit(values: z.infer<typeof RegisterEmailSchema>) {
+    console.log(values)
+    navigate('/movesong-frontend/register/password', { state: { email: values.email } });
   }
 
   const handleLoginClick = () => {
@@ -23,14 +42,23 @@ export function RegisterEmailPanel() {
           <CardTitle className={`flex justify-center scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>Create Your Account</CardTitle>
         </CardHeader>
         <CardContent>
-          <form>
-            <div className={`grid w-full items-center`}>
-              <div className={`flex flex-col space-y-1.5`}>
-                <Input id={`name`} placeholder={`Email Address`} />
-              </div>
-            </div>
-            <Button onClick={handleContinueClick} className={`primaryButton flex-row w-full gap-2 mt-2`}><EmailIcon /> Register with Email</Button>
-          </form>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input placeholder="Email Address" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button className={`primaryButton flex-row w-full gap-2 mt-2`} type={`submit`}><EmailIcon /> Register with email</Button>
+            </form>
+          </Form>
         </CardContent>
         <CardFooter className={`flex-col grid gap-2 items-start`}>
           <div className={`flex`}>

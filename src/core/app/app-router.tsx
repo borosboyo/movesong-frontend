@@ -16,6 +16,7 @@ import { TransferPanel } from '@/modules/transfer/transfer-panel.tsx';
 import { FinishPanel } from '@/modules/transfer/finish-panel.tsx';
 import ErrorPanel from '@/core/error/error.component.tsx';
 import PremiumPanel from '@/modules/premium/premium-panel.tsx';
+import { SharePanel } from '@/modules/share/share-panel.tsx';
 
 const RouterBuilder = () => {
 
@@ -52,8 +53,12 @@ const RouterBuilder = () => {
       element: <FinishPanel />,
     },
     {
-      path: '/movesong/frontend/premium',
+      path: '/movesong-frontend/premium',
       element: <PremiumPanel />
+    },
+    {
+      path: '/movesong-frontend/share',
+      element: <SharePanel />,
     }
   ];
 
@@ -78,7 +83,7 @@ const RouterBuilder = () => {
       element: <RegisterPasswordPanel />,
     },
     {
-      path: '/movesong-frontend/regsiter/confirm',
+      path: '/movesong-frontend/register/confirm',
       element: <RegisterConfirmEmailPanel />,
     },
   ];

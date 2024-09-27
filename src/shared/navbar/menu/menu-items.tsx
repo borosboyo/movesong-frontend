@@ -18,39 +18,16 @@ import { useTranslation } from 'react-i18next';
 
 const components: { title: string; href: string; description: string }[] = [
   {
-    title: 'Alert Dialog',
-    href: '/docs/primitives/alert-dialog',
+    title: 'Premium package',
+    href: '/movesong-frontend/premium',
     description:
-      'A modal dialog that interrupts the user with important content and expects a response.',
+      'Subscribe to premium to unlock all features and support the project.',
   },
   {
-    title: 'Hover Panel',
-    href: '/docs/primitives/hover-card',
+    title: 'Free package',
+    href: '/movesong-frontend/premium',
     description:
-      'For sighted users to preview content available behind a link.',
-  },
-  {
-    title: 'Progress',
-    href: '/docs/primitives/progress',
-    description:
-      'Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.',
-  },
-  {
-    title: 'Scroll-area',
-    href: '/docs/primitives/scroll-area',
-    description: 'Visually or semantically separates content.',
-  },
-  {
-    title: 'Tabs',
-    href: '/docs/primitives/tabs',
-    description:
-      'A set of layered sections of content—known as tab panels—that are displayed one at a time.',
-  },
-  {
-    title: 'Tooltip',
-    href: '/docs/primitives/tooltip',
-    description:
-      'A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.',
+      'Use the free package to transfer up to 500 songs.',
   },
 ];
 
