@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import { useEffect } from 'react';
 
 import { cn } from '@/core/lib/utils.ts';
 import {
@@ -8,54 +9,39 @@ import {
   NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
-  NavigationMenuList, navigationMenuLoginTriggerStyle,
+  NavigationMenuList,
+  navigationMenuLoginTriggerStyle,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/shared/components/ui/navigation-menu.tsx';
 import { ThemeToggle } from '@/core/theme/theme-toggle.tsx';
 import { I18nToggle } from '@/core/i18n/i18n-toggle.tsx';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '@/core/hooks/useAuth.tsx';
 
 const components: { title: string; href: string; description: string }[] = [
   {
-    title: 'Alert Dialog',
-    href: '/docs/primitives/alert-dialog',
+    title: 'Premium package',
+    href: '/movesong-frontend/premium',
     description:
-      'A modal dialog that interrupts the user with important content and expects a response.',
+      'Subscribe to premium to unlock all features and support the project.',
   },
   {
-    title: 'Hover Panel',
-    href: '/docs/primitives/hover-card',
+    title: 'Free package',
+    href: '/movesong-frontend/premium',
     description:
-      'For sighted users to preview content available behind a link.',
-  },
-  {
-    title: 'Progress',
-    href: '/docs/primitives/progress',
-    description:
-      'Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.',
-  },
-  {
-    title: 'Scroll-area',
-    href: '/docs/primitives/scroll-area',
-    description: 'Visually or semantically separates content.',
-  },
-  {
-    title: 'Tabs',
-    href: '/docs/primitives/tabs',
-    description:
-      'A set of layered sections of content—known as tab panels—that are displayed one at a time.',
-  },
-  {
-    title: 'Tooltip',
-    href: '/docs/primitives/tooltip',
-    description:
-      'A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.',
+      'Use the free package to transfer up to 500 songs.',
   },
 ];
 
 export function MenuItems(props: Readonly<{ type: string }>) {
   const { t } = useTranslation();
+  const { isLoggedIn, user } = useAuth();
+
+  useEffect(() => {
+    console.log(isLoggedIn());
+  }, []);
+
   return (
     <NavigationMenu>
       <NavigationMenuList>
@@ -63,28 +49,19 @@ export function MenuItems(props: Readonly<{ type: string }>) {
           <NavigationMenuItem className={` mr-5`}>
             <NavigationMenuTrigger className={`rounded-xl`}>{t('navbar.actions')}</NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className={`grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]`}>
-                <li className={`row-span-3`}>
+              <ul className={`grid gap-3 p-4 md:w-[400px] lg:w-[500px]`}>
+                <li className={`row-span-1`}>
                   <NavigationMenuLink
                     className={`flex h-full w-full select-none flex-col justify-end rounded-md from-muted/50 to-muted p-6 no-underline outline-none `}
-                    href="/">
+                    href="/movesong-frontend/transfer">
                     <div className={`mb-2 mt-4 text-lg font-medium`}>
-                      lorem ipsum
+                      Transfer songs
                     </div>
                     <p className={`text-sm leading-tight text-muted-foreground`}>
-                      Nullam sed ipsum in odio euismod mollis at in orci. Cras eu molestie turpis.
+                      Transfer your playlists between music streaming services.
                     </p>
                   </NavigationMenuLink>
                 </li>
-                <ListItem href="/docs" title="Sample Text">
-                  Nullam sed ipsum in odio euismod mollis at in orci.
-                </ListItem>
-                <ListItem href="/docs/installation" title="Sample Text">
-                  Nullam sed ipsum in odio euismod mollis at in orci.
-                </ListItem>
-                <ListItem href="/docs/primitives/typography" title="Sample Text">
-                  Nullam sed ipsum in odio euismod mollis at in orci.
-                </ListItem>
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
@@ -110,10 +87,15 @@ export function MenuItems(props: Readonly<{ type: string }>) {
             </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem className={`relative inline-flex group  mr-5 rounded-xl`}>
-            <NavigationMenuLink href={'/movesong-frontend/login'}
-              className={`${navigationMenuLoginTriggerStyle()} select-none rounded-xl`}>
-              <p>{t('navbar.login')}</p>
-            </NavigationMenuLink>
+            {isLoggedIn()
+              ?
+              <NavigationMenuLink href={'/movesong-frontend/profile'} className={`${navigationMenuLoginTriggerStyle()} select-none rounded-xl`}>
+                {user?.username}
+              </NavigationMenuLink>
+              :
+              <NavigationMenuLink href={'/movesong-frontend/login'} className={`${navigationMenuLoginTriggerStyle()} select-none rounded-xl`}>
+                <p>{t('navbar.login')}</p>
+              </NavigationMenuLink>}
           </NavigationMenuItem>
           <ThemeToggle />
           <I18nToggle />
@@ -141,7 +123,7 @@ const ListItem = React.forwardRef<
         >
           <div className={`text-sm font-medium leading-none`}>{title}</div>
           <p className={`line-clamp-2 text-sm leading-snug text-muted-foreground`}>
-          {children}
+            {children}
           </p>
         </a>
       </NavigationMenuLink>

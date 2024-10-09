@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useFadeInOnScroll } from '@/shared/hooks/useFadeInOnScroll.ts';
+import { useFadeInOnScroll } from '@/core/hooks/useFadeInOnScroll.ts';
 import { useReverseTitleTheme } from '@/core/theme/hooks/useReverseTitleTheme.ts';
 import { Card, CardContent, CardDescription } from '@/shared/components/ui/card.tsx';
 
