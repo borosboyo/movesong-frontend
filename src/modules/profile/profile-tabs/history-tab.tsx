@@ -11,12 +11,20 @@ export function HistoryTab() {
       </CardHeader>
       <CardContent className="space-y-2">
         <ScrollArea className={`h-[375px]`}>
-          <CardDescription>2024.03.01.</CardDescription>
-          <HistoryTabPlaylist />
-          <CardDescription>2024.02.15.</CardDescription>
-          <HistoryTabPlaylist />
-          <CardDescription>2024.01.12.</CardDescription>
-          <HistoryTabPlaylist />
+          <div className={`flex flex-col gap-2`}>
+            <div>
+              <CardDescription>2024.03.01.</CardDescription>
+              <HistoryTabPlaylist />
+            </div>
+            <div>
+              <CardDescription>2024.03.02.</CardDescription>
+              <HistoryTabPlaylist />
+            </div>
+            <div>
+              <CardDescription>2024.03.03.</CardDescription>
+              <HistoryTabPlaylist />
+            </div>
+          </div>
         </ScrollArea>
       </CardContent>
       <CardFooter>

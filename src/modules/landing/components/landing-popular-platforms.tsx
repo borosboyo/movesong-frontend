@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useFadeInOnScroll } from '@/shared/hooks/useFadeInOnScroll.ts';
+import { useFadeInOnScroll } from '@/core/hooks/useFadeInOnScroll.ts';
 import { useTitleTheme } from '@/core/theme/hooks/useTitleTheme.ts';
 import { Glow, GlowCapture } from '@codaworks/react-glow';
 import { Card } from '@/shared/components/ui/card.tsx';
@@ -29,17 +29,6 @@ export function LandingPopularPlatforms() {
               <img className={`w-14 h-14 object-cover select-none`} src={`/src/assets/youtube-music/youtube-music-icon.webp`} alt={`youtube-music`} />
               <div className="flex-1 text-lg text-center select-none">
                 <p>{t('landingPopularPlatforms.transfer')} <strong>{t('landingPopularPlatforms.youtubeMusic')}</strong>{t('landingPopularPlatforms.from')} <strong>{t('landingPopularPlatforms.spotify')}</strong>{t('landingPopularPlatforms.to')}.</p>
-              </div>
-              <img className={`w-14 h-14 object-cover select-none`} src={`/src/assets/spotify/spotify-icon.webp`} alt={`spotify`} />
-            </Card>
-          </Glow>
-        </GlowCapture>
-        <GlowCapture>
-          <Glow color={`#FF5003`}>
-            <Card className={`flex flex-row p-2 items-center justify-between glow:border-glow/80`}>
-              <img className={`w-14 h-14 object-cover select-none`} src={`/src/assets/soundcloud/soundcloud-icon.webp`} alt={`soundcloud`} />
-              <div className="flex-1 text-lg text-center select-none">
-                <p>{t('landingPopularPlatforms.transfer')} <strong>{t('landingPopularPlatforms.soundcloud')}</strong>{t('landingPopularPlatforms.from')} <strong>{t('landingPopularPlatforms.spotify')}</strong>{t('landingPopularPlatforms.to')}.</p>
               </div>
               <img className={`w-14 h-14 object-cover select-none`} src={`/src/assets/spotify/spotify-icon.webp`} alt={`spotify`} />
             </Card>

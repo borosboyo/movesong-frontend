@@ -1,7 +1,7 @@
 import { LandingTitle } from '@/modules/landing/components/landing-title.tsx';
 // import {
 //  FinishTransferPanel,
-//  ForgotPasswordPanel,
+//  ForgotPasswordEmailPanel,
 //  ForgotPasswordPanelWithOtp,
 //  LoginPanelWithPassword,
 //  PremiumPanel,
@@ -34,7 +34,7 @@ export default function Landing() {
   );
 }
 
-// export function Test() {
+// export function SharePanelBackgrounds() {
 //  return (
 //    <>
 //      <LoadingSpinner size={50} />
@@ -42,7 +42,7 @@ export default function Landing() {
 //      <SkeletonComponent />
 //      <LoginPanelWithPassword />
 //      <RegisterPanelWithData />
-//      <ForgotPasswordPanel />
+//      <ForgotPasswordEmailPanel />
 //      <ForgotPasswordPanelWithOtp />
 //      <PremiumPanel />
 //      <FaqPanel />
