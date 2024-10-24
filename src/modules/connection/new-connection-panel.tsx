@@ -1,4 +1,4 @@
-import { PanelContainer } from '@/shared/panel/panel-container.tsx';
+import { PanelContainer } from '@/shared/components/util/panel-container.tsx';
 import { Card, CardContent, CardHeader } from '@/shared/components/ui/card.tsx';
 import { Button } from '@/shared/components/ui/button';
 import { useGoogleLogin } from '@react-oauth/google';
@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import profileService from '@/modules/profile/profile-service.ts';
 import { ConnectionDto } from '@/swagger/transform/models/connection-dto';
 import { useHandleError } from '@/core/hooks/useHandleError';
+import { useTranslation } from 'react-i18next';
 
 export function NewConnectionPanel() {
   const navigate = useNavigate();
@@ -16,8 +17,9 @@ export function NewConnectionPanel() {
   const [connections, setConnections] = useState<ConnectionDto[]>([]);
   const handleError = useHandleError();
   const allConnectionTypes = ['YOUTUBE', 'SPOTIFY'];
-  const existingConnectionTypes = connections.map(connection => connection.connectionType);
+  const existingConnectionTypes = connections.map(connection => connection.platformType);
   const availableConnectionTypes = allConnectionTypes.filter(type => !existingConnectionTypes.includes(type));
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (user?.email) {
@@ -59,7 +61,7 @@ export function NewConnectionPanel() {
     <PanelContainer>
       <Card className={`w-full max-w-lg`}>
         <CardHeader className={`flex items-center`}>
-          <span className={`text-4xl font-extrabold tracking-tight lg:text-3xl`}>CONNECT AN ACCOUNT</span>
+          <span className={`text-4xl font-extrabold tracking-tight lg:text-3xl`}>{t('connection.newConnectionPanel.header')}</span>
         </CardHeader>
         <CardContent className="flex justify-center items-center">
           <div className={`flex flex-row items-center`}>

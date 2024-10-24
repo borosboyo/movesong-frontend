@@ -5,19 +5,26 @@ import '@/styles/animation.css';
 import '@/styles/text.css';
 import '@/modules/landing/landing.css';
 import { BottomWaveSeparator } from '@/shared/components/ui/wave-separator.tsx';
+import { useNavigate } from 'react-router-dom';
 
 export function LandingTitle() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const handleStartButtonClick = () => {
+    navigate('/movesong-frontend/transform');
+  }
+
   return (
     <>
       <div className={`darkBg w-full flex flex-col justify-center items-center pt-32 text-center `}>
         <h1
-          className={`scroll-m-20 text-7xl font-extrabold tracking-tight lg:text-7xl ${useTitleTheme()}`}>{t('landingTitle.header')}
+          className={`scroll-m-20 text-7xl font-extrabold tracking-tight lg:text-7xl ${useTitleTheme()}`}>{t('landing.landingTitle.header')}
         </h1>
         <LogoRibbon />
-        <span className={`text-3xl font-bold max-w-3xl text-white`}>{t('landingTitle.subtitle')}</span>
-        <Button className={`hover:bg-[#FF5003] w-64 py-5 rounded-2xl  mt-10 primaryButton`}>
-          <div className={`text-xl font-bold bigger-button-text`}>{t('landingTitle.button')}</div>
+        <span className={`text-3xl font-bold max-w-3xl text-white`}>{t('landing.landingTitle.subtitle')}</span>
+        <Button className={`hover:bg-[#FF5003] w-64 py-5 rounded-2xl  mt-10 primaryButton`} onClick={handleStartButtonClick}>
+          <div className={`text-xl font-bold bigger-button-text`}>{t('landing.landingTitle.button')}</div>
         </Button>
       </div>
       <BottomWaveSeparator/>

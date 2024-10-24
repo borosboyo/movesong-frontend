@@ -5,6 +5,7 @@ import { UserApiFactory } from '@/swagger/user';
 import { useHandleError } from '@/core/hooks/useHandleError.ts';
 import { useToast } from '@/shared/components/ui/use-toast.ts';
 import { axiosConfig, baseOptions } from '@/core/config/axiosConfig.ts';
+import { useTranslation } from 'react-i18next';
 
 type UserContextType = {
   user: UserDetails | null;
@@ -26,6 +27,7 @@ export const AuthProvider = ({ children }: Props) => {
   const handleErrors = useHandleError();
   const userApi = UserApiFactory(axiosConfig);
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -55,14 +57,14 @@ export const AuthProvider = ({ children }: Props) => {
       }, baseOptions);
       if (response?.data?.success) {
         toast({
-          title: 'Registered successfully!',
-          description: 'Please check your email to verify your account.',
+          title: t('auth.register.passwordPanel.successToast.title'),
+          description: t('auth.register.passwordPanel.successToast.description'),
           variant: 'success',
         });
       } else {
         toast({
-          title: 'Registration failed!',
-          description: 'Username or email already exists.',
+          title: t('auth.register.passwordPanel.errorToast.title'),
+          description: t('auth.register.passwordPanel.errorToast.description'),
           variant: 'destructive',
         });
       }
@@ -99,14 +101,14 @@ export const AuthProvider = ({ children }: Props) => {
 
         axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
         toast({
-          title: 'Logged in successfully!',
-          description: 'Welcome back!',
+          title: t('auth.login.passwordPanel.successToast.title'),
+          description: t('auth.login.passwordPanel.successToast.description'),
           variant: 'success',
         });
       } else {
         toast({
-          title: 'Login failed!',
-          description: 'Invalid username or password.',
+          title: t('auth.login.passwordPanel.errorToast.title'),
+          description: t('auth.login.passwordPanel.errorToast.description'),
           variant: 'destructive',
         });
       }

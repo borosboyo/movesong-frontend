@@ -1,12 +1,12 @@
-export function SharePanelBackgrounds({ backgroundId }: { backgroundId: number }) {
+export function SharePanelBackgrounds({ selectedBackgroundId }: { selectedBackgroundId: number }) {
   return (
     <>
-      {backgroundId === 0 && <WhiteAndPurpleBackground />}
-      {backgroundId === 1 && <WhiteGridBackground />}
-      {backgroundId === 2 && <PinkBackground />}
-      {backgroundId === 3 && <BlackGridBackground />}
-      {backgroundId === 4 && <BlueDottedBackground />}
-      {backgroundId === 5 && <BlackAndBlueBackground />}
+      {selectedBackgroundId === 0 && <WhiteAndPurpleBackground />}
+      {selectedBackgroundId === 1 && <WhiteGridBackground />}
+      {selectedBackgroundId === 2 && <PinkBackground />}
+      {selectedBackgroundId === 3 && <BlackGridBackground />}
+      {selectedBackgroundId === 4 && <BlueDottedBackground />}
+      {selectedBackgroundId === 5 && <BlackAndBlueBackground />}
     </>
   );
 }

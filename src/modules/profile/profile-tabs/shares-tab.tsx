@@ -1,24 +1,27 @@
 import { TabsContent } from '@/shared/components/ui/tabs.tsx';
 import { Card, CardContent, CardFooter, CardHeader } from '@/shared/components/ui/card.tsx';
-import { Button } from '@/shared/components/ui/button.tsx';
-import { DataTableDemo } from '@/shared/panel/data-table.tsx';
+import { SharesTable } from '@/modules/profile/profile-tabs/shares-table.tsx';
+import { useTranslation } from 'react-i18next';
 
 export function SharesTab() {
-  return <TabsContent value="shares">
-    <Card>
-      <CardHeader>
-        <div className={`grid w-full grid-cols-2`}>
-          <span className={`w scroll-m-20 text-l font-extrabold tracking-tight lg:text-l`}>My Shares</span>
-          <div className={`flex w-auto justify-end`}>
-            <Button className={`primaryButton`}>New share</Button>
+  const { t } = useTranslation();
+
+  return (
+    <TabsContent value="shares">
+      <Card>
+        <CardHeader>
+          <div className={`grid w-full grid-cols-2`}>
+            <span className={`w scroll-m-20 text-l font-extrabold tracking-tight lg:text-l`}>
+              {t('profile.sharesTab.header')}
+            </span>
           </div>
-        </div>
-      </CardHeader>
-      <CardContent className="space-y-2">
-        <DataTableDemo/>
-      </CardContent>
-      <CardFooter>
-      </CardFooter>
-    </Card>
-  </TabsContent>;
+        </CardHeader>
+        <CardContent className="space-y-2">
+          <SharesTable />
+        </CardContent>
+        <CardFooter>
+        </CardFooter>
+      </Card>
+    </TabsContent>
+  );
 }

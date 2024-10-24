@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/shared/components/ui/card.tsx';
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@/shared/components/ui/input-otp.tsx';
 import { Button } from '@/shared/components/ui/button.tsx';
-import { PanelContainer } from '@/shared/panel/panel-container.tsx';
+import { PanelContainer } from '@/shared/components/util/panel-container.tsx';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useLoading } from '@/core/hooks/useLoading.tsx';
@@ -14,6 +14,7 @@ import forgotPasswordService from '@/modules/auth/forgot-password/forgot-passwor
 import { useHandleError } from '@/core/hooks/useHandleError.ts';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/shared/components/ui/form.tsx';
 import EmailIcon from '@/shared/icons/email-icon.tsx';
+import { useTranslation } from 'react-i18next';
 
 const ForgotPasswordSchema = z.object({
   pin: z
@@ -29,6 +30,7 @@ export function ForgotPasswordOtpPanel() {
   const { toast } = useToast();
   const handleErrors = useHandleError();
   const email = location?.state?.email;
+  const { t } = useTranslation();
 
   const forgotPasswordForm = useForm<z.infer<typeof ForgotPasswordSchema>>({
     resolver: zodResolver(ForgotPasswordSchema),
@@ -47,8 +49,8 @@ export function ForgotPasswordOtpPanel() {
       } else {
         setLoading(false);
         toast({
-          title: 'Password reset failed.',
-          description: 'Please try again with a valid email address.',
+          title: t('auth.forgotPassword.otpPanel.errorToast.title'),
+          description: t('auth.forgotPassword.otpPanel.errorToast.description'),
           variant: 'destructive',
         });
       }
@@ -65,14 +67,14 @@ export function ForgotPasswordOtpPanel() {
       const resp = await forgotPasswordService.resendForgotPassword(email);
       if(resp.success) {
         toast({
-          title: 'Yay!',
-          description: 'Confirmation email has been resent.',
+          title: t('auth.forgotPassword.otpPanel.resendEmailSuccessToast.title'),
+          description: t('auth.forgotPassword.otpPanel.resendEmailSuccessToast.description'),
           variant: 'success',
         });
       } else {
         toast({
-          title: 'Uh oh! Something went wrong.',
-          description: 'Could not resend email. Please try again.',
+          title: t('auth.forgotPassword.otpPanel.resendEmailErrorToast.title'),
+          description: t('auth.forgotPassword.otpPanel.resendEmailErrorToast.description'),
         });
       }
     } catch (error) {
@@ -84,8 +86,12 @@ export function ForgotPasswordOtpPanel() {
     <PanelContainer>
       <Card className={`w-[350px]`}>
         <CardHeader>
-          <CardTitle className={`flex justify-center scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>Email Verification</CardTitle>
-          <CardDescription>Keep this window open and type in the security code we just sent to test@test.com.</CardDescription>
+          <CardTitle className={`flex justify-center scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>
+            {t('auth.forgotPassword.otpPanel.header')}
+          </CardTitle>
+          <CardDescription>
+            {t('auth.forgotPassword.otpPanel.description')} { email }
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className={`flex justify-center`}>
@@ -119,7 +125,7 @@ export function ForgotPasswordOtpPanel() {
                   onClick={forgotPasswordForm.handleSubmit(onSubmit)}
                   loading={loading}
                   progress={progress}
-                  buttonText="Change password"
+                  buttonText={t('auth.forgotPassword.otpPanel.buttonText')}
                   className="w-full primaryButton"
                   icon={<EmailIcon />}
                 />
@@ -130,9 +136,9 @@ export function ForgotPasswordOtpPanel() {
         <CardFooter className={`flex-col grid gap-2 items-start`}>
           <div className={`flex`}>
             <CardDescription>
-              Didn&apos;t get the code?
+              {t('auth.forgotPassword.otpPanel.resendEmailText')}
               <Button onClick={handleResendEmail} className={`p-0 ml-1`} variant={`link`}>
-                <p className={`sm:text-s`}>Resend email</p>
+                <p className={`sm:text-s`}>{t('auth.forgotPassword.otpPanel.resendButtonText')}</p>
               </Button>
             </CardDescription>
           </div>
