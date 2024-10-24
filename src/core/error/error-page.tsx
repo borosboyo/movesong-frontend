@@ -1,10 +1,8 @@
 import { useNavigate, useRouteError } from 'react-router-dom';
-import { PanelContainer } from '@/shared/components/util/panel-container.tsx';
+import { PanelContainer } from '@/shared/panel/panel-container.tsx';
 import { Button } from '@/shared/components/ui/button';
-import { useTranslation } from 'react-i18next';
 
 export default function ErrorPanel() {
-  const { t } = useTranslation();
   const error = useRouteError() as Error;
   const navigate = useNavigate();
 
@@ -15,15 +13,11 @@ export default function ErrorPanel() {
   return (
     <PanelContainer>
       <div className={`flex flex-col items-center gap-8`}>
-        <h1 className={`text-9xl font-extrabold tracking-tight lg:text-9xl`}>
-          {t('errorPage.header')}
-        </h1>
+        <h1 className={`text-9xl font-extrabold tracking-tight lg:text-9xl`}>404</h1>
         <p className={`text-2xl font-light tracking-tight lg:text-2xl`}>
-          {t('errorPage.text')}
+          The page you were looking for could not be found.
         </p>
-        <Button className={`primaryButton text-lg py-6 px-8`} onClick={handleReturn}>
-          {t('errorPage.buttonText')}
-        </Button>
+        <Button className={`primaryButton text-lg py-6 px-8`} onClick={handleReturn}>Take me back</Button>
         <i>
           {(error)?.message ||
             (error as { statusText?: string })?.statusText}

@@ -2,7 +2,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/shared/components/ui/button.tsx';
 import { useButtonTheme } from '@/core/theme/hooks/useButtonTheme.ts';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { PanelContainer } from '@/shared/components/util/panel-container.tsx';
+import { PanelContainer } from '@/shared/panel/panel-container.tsx';
 import { useAuth } from '@/core/hooks/useAuth.tsx';
 import { useLoading } from '@/core/hooks/useLoading.tsx';
 import { useState } from 'react';
@@ -14,7 +14,6 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from '@/shared/co
 import EmailIcon from '@/shared/icons/email-icon.tsx';
 import { PasswordInput } from '@/shared/components/ui/password-input.tsx';
 import { hasNumbers, hasSpecialCharacters, hasUppercaseCharacters } from '@/core/util/zod-util.ts';
-import { useTranslation } from 'react-i18next';
 
 const PasswordSchema = z.object({
   password: z
@@ -32,7 +31,6 @@ export function LoginPasswordPanel() {
   const [loading, setLoading] = useState(false);
   const progress = useLoading(loading);
   const usernameOrEmail = location?.state?.usernameOrEmail;
-  const { t } = useTranslation();
 
   const form = useForm<z.infer<typeof PasswordSchema>>({
     resolver: zodResolver(PasswordSchema),
@@ -53,6 +51,7 @@ export function LoginPasswordPanel() {
     navigate('/movesong-frontend/login');
   };
 
+
   const handleForgotPasswordClick = () => {
     navigate('/movesong-frontend/forgot-password');
   };
@@ -61,9 +60,7 @@ export function LoginPasswordPanel() {
     <PanelContainer>
       <Card className={`w-[350px]`}>
         <CardHeader>
-          <CardTitle className={`flex justify-center scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>
-            {t('auth.login.passwordPanel.header')}
-          </CardTitle>
+          <CardTitle className={`flex justify-center scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>Log in to Movesong</CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -74,7 +71,7 @@ export function LoginPasswordPanel() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <PasswordInput placeholder={t('auth.login.passwordPanel.passwordPlaceholder')} {...field} />
+                      <PasswordInput placeholder="Password" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -84,22 +81,19 @@ export function LoginPasswordPanel() {
                 onClick={form.handleSubmit(onSubmit)}
                 loading={loading}
                 progress={progress}
-                buttonText={t('auth.login.passwordPanel.buttonText')}
+                buttonText="Log in"
                 className="w-full primaryButton"
                 icon={<EmailIcon />}
               />
             </form>
           </Form>
-          <Button className={`w-full ${useButtonTheme()} transition-transform hover:scale-105 mt-2`} onClick={handleReturnClick}>
-            {t('auth.login.passwordPanel.logInWithDifferentAccountButtonText')}
-          </Button>
+          <Button className={`w-full ${useButtonTheme()} transition-transform hover:scale-105 mt-2`} onClick={handleReturnClick}>Log in with different account</Button>
         </CardContent>
         <CardFooter className={`flex-col grid gap-2 items-start`}>
           <div className={`flex`}>
-            <CardDescription>
-              {t('auth.login.passwordPanel.forgotYourPasswordText')}
+            <CardDescription>Forgot your password?
               <Button onClick={handleForgotPasswordClick} className={`p-0 ml-1`} variant={`link`}>
-                <p className={`sm:text-s`}>{t('auth.login.passwordPanel.forgotYourPasswordButtonText')}</p>
+                <p className={`sm:text-s`}>Click here</p>
               </Button>
             </CardDescription>
           </div>

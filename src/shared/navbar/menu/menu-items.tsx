@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import { useEffect } from 'react';
 
 import { cn } from '@/core/lib/utils.ts';
 import {
@@ -29,13 +30,17 @@ const components: { title: string; href: string; description: string }[] = [
     title: 'Free package',
     href: '/movesong-frontend/premium',
     description:
-      'Use the free package to transform-tabs up to 500 songs.',
+      'Use the free package to transfer up to 500 songs.',
   },
 ];
 
 export function MenuItems(props: Readonly<{ type: string }>) {
   const { t } = useTranslation();
   const { isLoggedIn, user } = useAuth();
+
+  useEffect(() => {
+    console.log(isLoggedIn());
+  }, []);
 
   return (
     <NavigationMenu>
@@ -48,7 +53,7 @@ export function MenuItems(props: Readonly<{ type: string }>) {
                 <li className={`row-span-1`}>
                   <NavigationMenuLink
                     className={`flex h-full w-full select-none flex-col justify-end rounded-md from-muted/50 to-muted p-6 no-underline outline-none `}
-                    href="/movesong-frontend/transform">
+                    href="/movesong-frontend/transfer">
                     <div className={`mb-2 mt-4 text-lg font-medium`}>
                       Transfer songs
                     </div>

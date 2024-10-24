@@ -4,15 +4,9 @@ import { MenuItems } from '@/shared/navbar/menu/menu-items.tsx';
 import MenuIcon from '@/shared/icons/menu-icon.tsx';
 import { useTranslation } from 'react-i18next';
 import { useTitleTheme } from '@/core/theme/hooks/useTitleTheme.ts';
-import { useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
   const { t } = useTranslation();
-  const navigate = useNavigate()
-
-  const handleTitleClick = () => {
-    navigate('/movesong-frontend/');
-  }
 
   return <header className={`bg-[size:20px_20px] top-* flex h-20 w-full shrink-0 items-center px-4 md:px-6 darkBg`}>
     <Sheet>
@@ -22,18 +16,16 @@ export default function Navbar() {
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className={`bg-white`}>
-          <div className={`grid grid-cols-1 gap-2 py-6`}>
-            <div className={`mr-6`}>
-              <Button variant={`ghost`} className={`bg-transparent hover:bg-transparent`} onClick={handleTitleClick}>
-                <h1 className={`scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-4xl ${useTitleTheme()} select-none`}>{t('navbar.title')}</h1>
-              </Button>
-            </div>
-            <MenuItems type="flex-col" />
+        <div className={`grid grid-cols-1 gap-2 py-6`}>
+          <div className={`mr-6`}>
+            <h1 className={`scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-4xl select-none bg-transparent`}>{t('navbar.title')}</h1>
           </div>
+          <MenuItems type="flex-col" />
+        </div>
       </SheetContent>
     </Sheet>
     <div className={`mr-6 hidden lg:flex`}>
-      <Button className={`bg-transparent`} onClick={handleTitleClick}>
+      <Button className={`bg-transparent`}>
         <h1 className={`scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-4xl ${useTitleTheme()} select-none`}>{t('navbar.title')}</h1>
       </Button>
     </div>

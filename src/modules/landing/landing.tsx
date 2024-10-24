@@ -11,7 +11,7 @@ import { LandingTitle } from '@/modules/landing/components/landing-title.tsx';
 //  SharePanel,
 //  SkeletonComponent,
 //  ToastComponent,
-//  TransformPanel,
+//  TransferPanel,
 // } from '@/shared/panel/panel.tsx';
 // import { LoadingSpinner } from '@/shared/components/util/spinner.tsx';
 import '@/modules/landing/landing.css';
@@ -46,7 +46,7 @@ export default function Landing() {
 //      <ForgotPasswordPanelWithOtp />
 //      <PremiumPanel />
 //      <FaqPanel />
-//      <TransformPanel />
+//      <TransferPanel />
 //      <FinishTransferPanel />
 //      <ProgressBar />
 //      <SharePanel />

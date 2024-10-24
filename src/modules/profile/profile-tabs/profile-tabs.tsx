@@ -7,12 +7,10 @@ import { useEffect, useState } from 'react';
 import { FindSubscriptionResp } from '@/swagger/subscription';
 import premiumService from '@/modules/premium/premium-service.ts';
 import { useAuth } from '@/core/hooks/useAuth.tsx';
-import { useTranslation } from 'react-i18next';
 
 export function ProfileTabs() {
-  const { t } = useTranslation();
   const [subscription, setSubscription] = useState<FindSubscriptionResp | null>(null);
-  const { user } = useAuth();
+  const { user} = useAuth();
 
   useEffect(() => {
     if (user?.email) {
@@ -26,10 +24,10 @@ export function ProfileTabs() {
   return (
     <Tabs defaultValue="account" className="w-full">
       <TabsList className={`grid w-full ${subscription ? 'grid-cols-4' : 'grid-cols-3'}`}>
-        <TabsTrigger value="account">{t('profile.accountHeader')}</TabsTrigger>
-        {subscription && <TabsTrigger value="sync">{t('profile.syncHeader')}</TabsTrigger>}
-        <TabsTrigger value="shares">{t('profile.sharesHeader')}</TabsTrigger>
-        <TabsTrigger value="history">{t('profile.historyHeader')}</TabsTrigger>
+        <TabsTrigger value="account">Account</TabsTrigger>
+        {subscription && <TabsTrigger value="sync">Synchronizations</TabsTrigger>}
+        <TabsTrigger value="shares">Shares</TabsTrigger>
+        <TabsTrigger value="history">History</TabsTrigger>
       </TabsList>
       <AccountTab subscription={subscription} />
       {subscription && <SyncTab />}

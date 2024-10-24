@@ -10,11 +10,11 @@ export function LandingPopularFeatures() {
   return (
     <div ref={domRef} className={`flex flex-col gap-10 ${isVisible ? 'fadeIn' : 'fadeOut'} my-20`}>
       <div className={`flex flex-col items-center gap-7`}>
-        <h1 className={`scroll-m-20 text-6xl font-extrabold tracking-tight lg:text-6xl ${useReverseTitleTheme()}`}>{t('landing.landingPopularFeatures.header')}</h1>
+        <h1 className={`scroll-m-20 text-6xl font-extrabold tracking-tight lg:text-6xl ${useReverseTitleTheme()}`}>{t('landingPopularFeatures.header')}</h1>
         <div className={`flex flex-row gap-6`}>
-          <FeatureCard title={`landing.landingPopularFeatures.transferHeader`} description={`landing.landingPopularFeatures.transferSubtitle`} />
-          <FeatureCard title={`landing.landingPopularFeatures.syncHeader`} description={`landing.landingPopularFeatures.syncSubtitle`} />
-          <FeatureCard title={`landing.landingPopularFeatures.shareHeader`} description={`landing.landingPopularFeatures.shareSubtitle`} />
+          <FeatureCard title={`landingPopularFeatures.transferHeader`} description={`landingPopularFeatures.transferSubtitle`} />
+          <FeatureCard title={`landingPopularFeatures.syncHeader`} description={`landingPopularFeatures.syncSubtitle`} />
+          <FeatureCard title={`landingPopularFeatures.shareHeader`} description={`landingPopularFeatures.shareSubtitle`} />
         </div>
       </div>
     </div>

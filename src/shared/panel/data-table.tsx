@@ -1,20 +1,20 @@
-import { useEffect, useState } from 'react';
+import * as React from "react"
 import {
   ColumnDef,
   ColumnFiltersState,
+  SortingState,
+  VisibilityState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  SortingState,
   useReactTable,
-  VisibilityState,
-} from '@tanstack/react-table';
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from 'lucide-react';
+} from "@tanstack/react-table"
+import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
 
-import { Button } from '@/shared/components/ui/button.tsx';
-import { Checkbox } from '@/shared/components/ui/checkbox.tsx';
+import { Button } from "@/shared/components/ui/button"
+import { Checkbox } from "@/shared/components/ui/checkbox"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -23,62 +23,65 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/shared/components/ui/dropdown-menu.tsx';
-import { Input } from '@/shared/components/ui/input.tsx';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/shared/components/ui/table.tsx';
-import { ShareDto } from '@/swagger/share/models/share-dto';
-import profileService from '@/modules/profile/profile-service.ts';
-import { useAuth } from '@/core/hooks/useAuth.tsx';
-import { useHandleError } from '@/core/hooks/useHandleError.ts';
+} from "@/shared/components/ui/dropdown-menu"
+import { Input } from "@/shared/components/ui/input"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/shared/components/ui/table"
 
 export type Payment = {
   id: string
   amount: number
-  status: 'pending' | 'processing' | 'success' | 'failed'
+  status: "pending" | "processing" | "success" | "failed"
   email: string
 }
 
 const data: Payment[] = [
   {
-    id: 'm5gr84i9',
+    id: "m5gr84i9",
     amount: 316,
-    status: 'success',
-    email: 'ken99@yahoo.com',
+    status: "success",
+    usernameOrEmail: "ken99@yahoo.com",
   },
   {
-    id: '3u1reuv4',
+    id: "3u1reuv4",
     amount: 242,
-    status: 'success',
-    email: 'Abe45@gmail.com',
+    status: "success",
+    usernameOrEmail: "Abe45@gmail.com",
   },
   {
-    id: 'derv1ws0',
+    id: "derv1ws0",
     amount: 837,
-    status: 'processing',
-    email: 'Monserrat44@gmail.com',
+    status: "processing",
+    usernameOrEmail: "Monserrat44@gmail.com",
   },
   {
-    id: '5kma53ae',
+    id: "5kma53ae",
     amount: 874,
-    status: 'success',
-    email: 'Silas22@gmail.com',
+    status: "success",
+    usernameOrEmail: "Silas22@gmail.com",
   },
   {
-    id: 'bhqecj4p',
+    id: "bhqecj4p",
     amount: 721,
-    status: 'failed',
-    email: 'carmella@hotmail.com',
+    status: "failed",
+    usernameOrEmail: "carmella@hotmail.com",
   },
-];
+]
 
 export const columns: ColumnDef<Payment>[] = [
   {
-    id: 'select',
+    id: "select",
     header: ({ table }) => (
       <Checkbox
         checked={
           table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && 'indeterminate')
+          (table.getIsSomePageRowsSelected() && "indeterminate")
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
@@ -95,64 +98,64 @@ export const columns: ColumnDef<Payment>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'playlist',
+    accessorKey: "playlist",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Playlist name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      );
+      )
     },
     cell: () => <div className="lowercase ml-4">Sample Playlist</div>,
   },
   {
-    accessorKey: 'lastsync',
+    accessorKey: "lastsync",
     header: () => <div className="text-right">Last sync</div>,
     cell: () => {
 
-      return <div className="text-right font-medium"></div>;
+      return <div className="text-right font-medium"></div>
     },
   },
   {
-    accessorKey: 'nextsync',
+    accessorKey: "nextsync",
     header: () => <div className="text-right">Next sync</div>,
     cell: () => {
 
-      return <div className="text-right font-medium"></div>;
+      return <div className="text-right font-medium"></div>
     },
   },
   {
-    accessorKey: 'period',
+    accessorKey: "period",
     header: () => <div className="text-right">Period</div>,
     cell: () => {
 
-      return <div className="text-right font-medium"></div>;
+      return <div className="text-right font-medium"></div>
     },
   },
   {
-    accessorKey: 'mode',
+    accessorKey: "mode",
     header: () => <div className="text-right">Mode</div>,
     cell: () => {
 
-      return <div className="text-right font-medium"></div>;
+      return <div className="text-right font-medium"></div>
     },
   },
   {
-    accessorKey: 'status',
+    accessorKey: "status",
     header: () => <div className="text-right">Status</div>,
     cell: () => {
-      return <div className="text-right font-medium"></div>;
+      return <div className="text-right font-medium"></div>
     },
   },
   {
-    id: 'actions',
+    id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const payment = row.original;
+      const payment = row.original
 
       return (
         <DropdownMenu>
@@ -174,21 +177,20 @@ export const columns: ColumnDef<Payment>[] = [
             <DropdownMenuItem>Open on platform</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      );
+      )
     },
   },
-];
+]
 
-// TODO
-export function SyncTable() {
-  const [sorting, setSorting] = useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = useState({});
-  const [shares, setShares] = useState<ShareDto[]>([]);
-  const [loading, setLoading] = useState(false);
-  const handleError = useHandleError();
-  const { user } = useAuth();
+export function DataTableDemo() {
+  const [sorting, setSorting] = React.useState<SortingState>([])
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    []
+  )
+  const [columnVisibility, setColumnVisibility] =
+    React.useState<VisibilityState>({})
+  const [rowSelection, setRowSelection] = React.useState({})
+
   const table = useReactTable({
     data,
     columns,
@@ -206,31 +208,16 @@ export function SyncTable() {
       columnVisibility,
       rowSelection,
     },
-  });
-
-  useEffect(() => {
-    setLoading(true);
-    if (user?.email) {
-      profileService.getSharesByMovesongEmail(user.email).then((resp) => {
-        if (resp.shares != null) {
-          setShares(resp.shares);
-          setLoading(false);
-        }
-      }).catch((error) => {
-        handleError(error);
-        setLoading(false);
-      });
-    }
-  }, [user?.email]);
+  })
 
   return (
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter playlists..."
-          value={(table.getColumn('playlist')?.getFilterValue() as string) ?? ''}
+          value={(table.getColumn("playlist")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn('playlist')?.setFilterValue(event.target.value)
+            table.getColumn("playlist")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
@@ -251,12 +238,12 @@ export function SyncTable() {
                     className="capitalize"
                     checked={column.getIsVisible()}
                     onCheckedChange={(value) =>
-                      column.toggleVisibility(value)
+                      column.toggleVisibility(!!value)
                     }
                   >
                     {column.id}
                   </DropdownMenuCheckboxItem>
-                );
+                )
               })}
           </DropdownMenuContent>
         </DropdownMenu>
@@ -273,10 +260,10 @@ export function SyncTable() {
                         ? null
                         : flexRender(
                           header.column.columnDef.header,
-                          header.getContext(),
+                          header.getContext()
                         )}
                     </TableHead>
-                  );
+                  )
                 })}
               </TableRow>
             ))}
@@ -286,13 +273,13 @@ export function SyncTable() {
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
+                  data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext(),
+                        cell.getContext()
                       )}
                     </TableCell>
                   ))}
@@ -313,7 +300,7 @@ export function SyncTable() {
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{' '}
+          {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
         <div className="space-x-2">
@@ -336,5 +323,5 @@ export function SyncTable() {
         </div>
       </div>
     </div>
-  );
+  )
 }

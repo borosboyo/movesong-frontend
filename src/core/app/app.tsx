@@ -13,7 +13,7 @@ const App = () => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <AuthProvider>
-        <GoogleOAuthProvider clientId={`391522306160-qa3lb3m09pgrr9dd3549sufuegajldmk.apps.googleusercontent.com`}>
+        <GoogleOAuthProvider clientId={`960198452118-4hq6npj4nbm8lmd3qgchugis87jd4gav.apps.googleusercontent.com`}>
           <CustomerIdProvider>
             <RouterProvider router={createBrowserRouter(routes)}/>
             <Toaster/>

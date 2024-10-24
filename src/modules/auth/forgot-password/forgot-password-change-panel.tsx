@@ -1,4 +1,4 @@
-import { PanelContainer } from '@/shared/components/util/panel-container.tsx';
+import { PanelContainer } from '@/shared/panel/panel-container.tsx';
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card.tsx';
 import { PasswordInput } from '@/shared/components/ui/password-input.tsx';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -13,7 +13,6 @@ import forgotPasswordService from '@/modules/auth/forgot-password/forgot-passwor
 import { useHandleError } from '@/core/hooks/useHandleError.ts';
 import { hasNumbers, hasSpecialCharacters, hasUppercaseCharacters } from '@/core/util/zod-util.ts';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/shared/components/ui/form.tsx';
-import { useTranslation } from 'react-i18next';
 
 const ForgotPasswordSchema = z.object({
   newPassword: z
@@ -41,7 +40,6 @@ export function ForgotPasswordChangePanel() {
   const { toast } = useToast();
   const handleErrors = useHandleError();
   const email = location?.state?.email;
-  const { t } = useTranslation();
 
   const forgotPasswordForm = useForm<z.infer<typeof ForgotPasswordSchema>>({
     resolver: zodResolver(ForgotPasswordSchema),
@@ -58,16 +56,16 @@ export function ForgotPasswordChangePanel() {
       if (resp.success) {
         setLoading(false);
         toast({
-          title: t('auth.forgotPassword.changePanel.successToast.title'),
-          description: t('auth.forgotPassword.changePanel.successToast.description'),
+          title: 'Yay!',
+          description: 'Password has been changed successfully. You can now log in with your new password.',
           variant: 'success',
         });
         navigate('/movesong-frontend');
       } else {
         setLoading(false);
         toast({
-          title: t('auth.forgotPassword.changePanel.errorToast.title'),
-          description: t('auth.forgotPassword.changePanel.errorToast.description'),
+          title: 'Password reset failed.',
+          description: 'Please try again with a valid new password.',
           variant: 'destructive',
         });
       }
@@ -83,9 +81,7 @@ export function ForgotPasswordChangePanel() {
     <PanelContainer>
       <Card className={`w-[400px]`}>
         <CardHeader>
-          <CardTitle className={`flex justify-center scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>
-            {t('auth.forgotPassword.changePanel.header')}
-          </CardTitle>
+          <CardTitle className={`flex justify-center scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>Change your password</CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...forgotPasswordForm}>
@@ -96,7 +92,7 @@ export function ForgotPasswordChangePanel() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <PasswordInput placeholder={t('auth.forgotPassword.changePanel.passwordInputPlaceholder')} {...field} />
+                      <PasswordInput placeholder="New password" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -108,7 +104,7 @@ export function ForgotPasswordChangePanel() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <PasswordInput placeholder={t('auth.forgotPassword.changePanel.confirmPasswordInputPlaceholder')} {...field} />
+                      <PasswordInput placeholder="Confirm password" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -118,7 +114,7 @@ export function ForgotPasswordChangePanel() {
                 onClick={forgotPasswordForm.handleSubmit(onSubmit)}
                 loading={loading}
                 progress={progress}
-                buttonText={t('auth.forgotPassword.changePanel.buttonText')}
+                buttonText="Change password"
                 className="w-full primaryButton"
               />
             </form>

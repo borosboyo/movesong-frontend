@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card.tsx';
 import { Input } from '@/shared/components/ui/input.tsx';
-import { PanelContainer } from '@/shared/components/util/panel-container.tsx';
+import { PanelContainer } from '@/shared/panel/panel-container.tsx';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useLoading } from '@/core/hooks/useLoading.tsx';
@@ -13,14 +13,14 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from '@/shared/co
 import EmailIcon from '@/shared/icons/email-icon.tsx';
 import { useHandleError } from '@/core/hooks/useHandleError.ts';
 import { useToast } from '@/shared/components/ui/use-toast.ts';
-import { useTranslation } from 'react-i18next';
 
 const ForgotPasswordSchema = z.object({
   email: z
     .string()
-    .min(2, { message: "Email is invalid." })
+    .min(2, { message: "Email is invalid.", })
     .email()
-});
+})
+
 
 export function ForgotPasswordEmailPanel() {
   const navigate = useNavigate();
@@ -28,27 +28,26 @@ export function ForgotPasswordEmailPanel() {
   const progress = useLoading(loading);
   const handleErrors = useHandleError();
   const { toast } = useToast();
-  const { t } = useTranslation();
 
   const forgotPasswordForm = useForm<z.infer<typeof ForgotPasswordSchema>>({
     resolver: zodResolver(ForgotPasswordSchema),
     defaultValues: {
       email: "",
     },
-  });
+  })
 
   const onSubmit = async (values: z.infer<typeof ForgotPasswordSchema>) => {
     setLoading(true);
     try {
       const resp = await forgotPasswordService.forgotPassword(values.email);
-      if (resp.success) {
+      if(resp.success) {
         setLoading(false);
-        navigate('/movesong-frontend/forgot-password/otp', { state: { email: values.email } });
+        navigate('/movesong-frontend/forgot-password/otp' , { state: { email: values.email } });
       } else {
         setLoading(false);
         toast({
-          title: t('auth.forgotPassword.emailPanel.errorToast.title'),
-          description: t('auth.forgotPassword.emailPanel.errorToast.description'),
+          title: 'Password reset failed.',
+          description: 'Please try again with a valid email address.',
           variant: 'destructive',
         });
       }
@@ -64,9 +63,7 @@ export function ForgotPasswordEmailPanel() {
     <PanelContainer>
       <Card className={`w-[350px]`}>
         <CardHeader>
-          <CardTitle className={`flex justify-center scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>
-            {t('auth.forgotPassword.emailPanel.header')}
-          </CardTitle>
+          <CardTitle className={`flex justify-center scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>Reset Your Password</CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...forgotPasswordForm}>
@@ -77,7 +74,7 @@ export function ForgotPasswordEmailPanel() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input placeholder={t('auth.forgotPassword.emailPanel.emailInputPlaceholder')} {...field} />
+                      <Input placeholder="Email address" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -87,7 +84,7 @@ export function ForgotPasswordEmailPanel() {
                 onClick={forgotPasswordForm.handleSubmit(onSubmit)}
                 loading={loading}
                 progress={progress}
-                buttonText={t('auth.forgotPassword.emailPanel.buttonText')}
+                buttonText="Log in"
                 className="w-full primaryButton"
                 icon={<EmailIcon />}
               />

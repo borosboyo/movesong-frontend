@@ -1,6 +1,6 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/shared/components/ui/card.tsx';
 import DiamondIcon from '@/shared/icons/diamond-icon.tsx';
-import { PanelContainer } from '@/shared/components/util/panel-container.tsx';
+import { PanelContainer } from '@/shared/panel/panel-container';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useLoading } from '@/core/hooks/useLoading.tsx';
@@ -11,10 +11,9 @@ import { useHandleError } from '@/core/hooks/useHandleError';
 import { useToast } from '@/shared/components/ui/use-toast';
 import { FindSubscriptionResp } from '@/swagger/subscription';
 import { useCustomerId } from '@/modules/premium/customer-context.tsx';
-import { useTranslation } from 'react-i18next';
 
 export default function PremiumPanel() {
-  const { t } = useTranslation();
+  // eslint-disable-next-line no-unused-vars
   const [subscription, setSubscription] = useState<FindSubscriptionResp | null>(null);
   const { user } = useAuth();
 
@@ -30,23 +29,15 @@ export default function PremiumPanel() {
   return (
     <PanelContainer>
       <div className={`flex flex-col gap-4`}>
-        {subscription ? <AlreadyPremiumCard /> : <PremiumCard />}
+        {subscription ? <AlreadyPremiumCard /> : <PremiumCard/>}
         <Card className={`w-[500px]`}>
           <CardHeader>
-            <CardTitle className={`flex scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>
-              {t('premium.freePackage.header')}
-            </CardTitle>
+            <CardTitle className={`flex scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>Free package summary</CardTitle>
           </CardHeader>
           <CardContent className={`flex-col grid gap-4`}>
-            <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}>
-              <DiamondIcon />{t('premium.freePackage.benefit1')}
-            </CardTitle>
-            <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}>
-              <DiamondIcon />{t('premium.freePackage.benefit2')}
-            </CardTitle>
-            <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}>
-              <DiamondIcon />{t('premium.freePackage.benefit3')}
-            </CardTitle>
+            <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}><DiamondIcon />Max 500 song transfers</CardTitle>
+            <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}><DiamondIcon />No automatic synchronization</CardTitle>
+            <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}><DiamondIcon />Export to TXT / CSV</CardTitle>
           </CardContent>
         </Card>
       </div>
@@ -55,7 +46,6 @@ export default function PremiumPanel() {
 }
 
 function PremiumCard() {
-  const { t } = useTranslation();
   const navigate = useNavigate();
   const [monthlyLoading, setMonthlyLoading] = useState(false);
   const [yearlyLoading, setYearlyLoading] = useState(false);
@@ -86,8 +76,8 @@ function PremiumCard() {
           } else {
             setMonthlyLoading(false);
             toast({
-              title: t('premium.errorToast.title'),
-              description: t('premium.errorToast.description'),
+              title: 'Error!',
+              description: 'Something went wrong. Please try again later.',
               variant: 'destructive',
             });
           }
@@ -101,18 +91,18 @@ function PremiumCard() {
 
   const handleYearlySubscription = () => {
     setYearlyLoading(true);
-    if (user?.email && user.username) {
+    if(user?.email && user.username) {
       premiumService.subscription(user.email, user.username, 'year', 'prod_QuqcNVtCp060Lm')
         .then((resp) => {
-          if (resp.url && resp.customerId) {
+          if(resp.url && resp.customerId) {
             setCustomerId(resp.customerId);
             setYearlyLoading(false);
             window.location.href = resp.url;
           } else {
             setYearlyLoading(false);
             toast({
-              title: t('premium.errorToast.title'),
-              description: t('premium.errorToast.description'),
+              title: 'Error!',
+              description: 'Something went wrong. Please try again later.',
               variant: 'destructive',
             });
           }
@@ -127,34 +117,26 @@ function PremiumCard() {
   return (
     <Card className={`w-[500px]`}>
       <CardHeader>
-        <CardTitle className={`flex scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>
-          {t('premium.premiumPackage.header')}
-        </CardTitle>
+        <CardTitle className={`flex scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>Switch to Premium!</CardTitle>
       </CardHeader>
       <CardContent className={`flex-col grid gap-4`}>
-        <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}>
-          <DiamondIcon />{t('premium.premiumPackage.benefit1')}
-        </CardTitle>
-        <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}>
-          <DiamondIcon />{t('premium.premiumPackage.benefit2')}
-        </CardTitle>
-        <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}>
-          <DiamondIcon />{t('premium.premiumPackage.benefit3')}
-        </CardTitle>
+        <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}><DiamondIcon />Unlimited transfers</CardTitle>
+        <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}><DiamondIcon />Playlist synchronization</CardTitle>
+        <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}><DiamondIcon />Export to TXT / CSV</CardTitle>
       </CardContent>
       <CardFooter className={`flex-col grid gap-2 items-start`}>
         <LoadingButton
           onClick={handleMonthlySubscriptionNavigate}
           loading={monthlyLoading}
           progress={monthlyProgress}
-          buttonText={t('premium.monthlyButtonText')}
+          buttonText="$ 4.99 / month"
           className="w-full primaryButton"
         />
         <LoadingButton
           onClick={handleYearlySubscriptionNavigate}
           loading={yearlyLoading}
           progress={yearlyProgress}
-          buttonText={t('premium.yearlyButtonText')}
+          buttonText="$ 24.99 / year"
           className="w-full primaryButton"
         />
       </CardFooter>
@@ -163,26 +145,17 @@ function PremiumCard() {
 }
 
 function AlreadyPremiumCard() {
-  const { t } = useTranslation();
-
   return (
     <Card className={`w-[500px]`}>
       <CardHeader>
-        <CardTitle className={`flex scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>
-          {t('premium.alreadyPremium.text')}
-        </CardTitle>
+        <CardTitle className={`flex scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>You are already a premium member, with the following benefits:</CardTitle>
       </CardHeader>
       <CardContent className={`flex-col grid gap-4`}>
-        <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}>
-          <DiamondIcon />{t('premium.premiumPackage.benefit1')}
-        </CardTitle>
-        <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}>
-          <DiamondIcon />{t('premium.premiumPackage.benefit2')}
-        </CardTitle>
-        <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}>
-          <DiamondIcon />{t('premium.premiumPackage.benefit3')}
-        </CardTitle>
+        <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}><DiamondIcon />Unlimited transfers</CardTitle>
+        <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}><DiamondIcon />Playlist synchronization</CardTitle>
+        <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}><DiamondIcon />Export to TXT / CSV</CardTitle>
       </CardContent>
     </Card>
   );
 }
+

@@ -7,6 +7,7 @@ export const useHandleError = () => {
 
   return (error: unknown) => {
     if (axios.isAxiosError(error)) {
+      console.log(error);
       const err = error.response;
       if (err?.status === 500) {
         toast({

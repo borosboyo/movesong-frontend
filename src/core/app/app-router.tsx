@@ -12,8 +12,8 @@ import { ForgotPasswordOtpPanel } from '@/modules/auth/forgot-password/forgot-pa
 import { ForgotPasswordChangePanel } from '@/modules/auth/forgot-password/forgot-password-change-panel.tsx';
 import { RegisterConfirmEmailPanel } from '@/modules/auth/register/register-confirm-email-panel.tsx';
 import { ProfilePanel } from '@/modules/profile/profile-panel.tsx';
-import { TransformPanel } from '@/modules/transform/transform-panel.tsx';
-import { FinishPanel } from '@/modules/transform/finish-panel.tsx';
+import { TransferPanel } from '@/modules/transfer/transfer-panel.tsx';
+import { FinishPanel } from '@/modules/transfer/finish-panel.tsx';
 import ErrorPanel from '@/core/error/error-page.tsx';
 import PremiumPanel from '@/modules/premium/premium-panel.tsx';
 import { SharePanel } from '@/modules/share/share-panel.tsx';
@@ -25,10 +25,6 @@ import PublicRoute from '@/core/auth/public-route.tsx';
 import { NewConnectionPanel } from '@/modules/connection/new-connection-panel.tsx';
 import SpotifyConnectedPanel from '@/modules/connection/spotify-connected-panel.tsx';
 import YoutubeConnectedPanel from '@/modules/connection/youtube-connected-panel.tsx';
-import { TermsOfServicePanel } from '@/modules/termsofservice/terms-of-service-panel.tsx';
-import { PrivacyPolicyPanel } from '@/modules/privacypolicy/privacy-policy-panel.tsx';
-import { TransformProvider } from '@/core/hooks/useTransform.tsx';
-import { CustomerIdProvider } from '@/modules/premium/customer-context.tsx';
 
 const RouterBuilder = () => {
 
@@ -57,33 +53,22 @@ const RouterBuilder = () => {
       element: <ContactPanel />,
     },
     {
-      path: '/movesong-frontend/terms-of-service',
-      element: <TermsOfServicePanel />,
-    },
-    {
-      path: '/movesong-frontend/privacy-policy',
-      element: <PrivacyPolicyPanel />,
-    },
-    {
       path: '/movesong-frontend/profile',
-      element:
-        <PrivateRoute>
-          <ProfilePanel />
-        </PrivateRoute>,
+      element: <PrivateRoute>
+        <ProfilePanel />
+      </PrivateRoute>,
     },
     {
       path: '/movesong-frontend/profile/new-connection',
-      element:
-        <PrivateRoute>
-          <NewConnectionPanel />
-        </PrivateRoute>,
+      element: <PrivateRoute>
+        <NewConnectionPanel />
+      </PrivateRoute>,
     },
     {
       path: '/movesong-frontend/profile/youtube-connected',
-      element:
-        <PrivateRoute>
-          <YoutubeConnectedPanel />
-        </PrivateRoute>,
+      element: <PrivateRoute>
+        <YoutubeConnectedPanel />
+      </PrivateRoute>,
     },
     {
       path: '/movesong-frontend/profile/spotify-connected',
@@ -92,51 +77,31 @@ const RouterBuilder = () => {
       </PrivateRoute>,
     },
     {
-      path: '/movesong-frontend/transform',
-      element:
-        <PrivateRoute>
-          <TransformProvider>
-            <TransformPanel />
-          </TransformProvider>
-        </PrivateRoute>,
+      path: '/movesong-frontend/transfer',
+      element: <PrivateRoute>
+        <TransferPanel />
+      </PrivateRoute>,
     },
     {
-      path: '/movesong-frontend/transform/finish',
-      element:
-        <PrivateRoute>
-          <TransformProvider>
-            <FinishPanel />
-          </TransformProvider>
-        </PrivateRoute>
-      ,
+      path: '/movesong-frontend/transfer/finish',
+      element: <PrivateRoute>
+        <FinishPanel />
+      </PrivateRoute>,
     },
     {
       path: '/movesong-frontend/premium',
-      element:
-        <CustomerIdProvider>
-          <PremiumPanel />
-        </CustomerIdProvider>,
+      element: <PremiumPanel />,
     },
     {
       path: 'movesong-frontend/premium/success',
-      element:
-        <PrivateRoute>
-          <CustomerIdProvider>
-            <PremiumSuccessPanel />
-          </CustomerIdProvider>
-        </PrivateRoute>,
+      element: <PremiumSuccessPanel />,
     },
     {
       path: '/movesong-frontend/premium/cancel',
-      element:
-        <PrivateRoute>
-          <CustomerIdProvider>
-            <PremiumCancelPanel />
-          </CustomerIdProvider>
-        </PrivateRoute>,
+      element: <PremiumCancelPanel />,
     },
     {
-      path: '/movesong-frontend/share/:shareId',
+      path: '/movesong-frontend/share',
       element: <SharePanel />,
     },
   ];

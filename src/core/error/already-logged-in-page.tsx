@@ -2,13 +2,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/shared/components/ui/button.tsx';
-import { PanelContainer } from '@/shared/components/util/panel-container.tsx';
+import { PanelContainer } from '@/shared/panel/panel-container.tsx';
 import { RocketIcon } from '@/shared/icons/rocket-icon.tsx';
-import { useTranslation } from 'react-i18next';
 
 const AlreadyLoggedInPage: React.FC = () => {
   const navigate = useNavigate();
-  const { t } = useTranslation();
 
   const handleReturn = () => {
     navigate('/movesong-frontend');
@@ -21,11 +19,9 @@ const AlreadyLoggedInPage: React.FC = () => {
           <RocketIcon size={100} />
         </h1>
         <p className={`text-2xl font-light tracking-tight lg:text-2xl`}>
-          {t('alreadyLoggedIn.text')}
+          The page you were looking for could not be found.
         </p>
-        <Button className={`primaryButton text-lg py-6 px-8`} onClick={handleReturn}>
-          {t('alreadyLoggedIn.buttonText')}
-        </Button>
+        <Button className={`primaryButton text-lg py-6 px-8`} onClick={handleReturn}>Take me back</Button>
       </div>
     </PanelContainer>
   );
