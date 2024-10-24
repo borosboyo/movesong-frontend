@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/shared/components/ui/card.tsx';
 import { Input } from '@/shared/components/ui/input.tsx';
 import { Button } from '@/shared/components/ui/button.tsx';
-import { PanelContainer } from '@/shared/panel/panel-container.tsx';
+import { PanelContainer } from '@/shared/components/util/panel-container.tsx';
 import { useButtonTheme } from '@/core/theme/hooks/useButtonTheme.ts';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -14,6 +14,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from '@/shared/co
 import { PasswordInput } from '@/shared/components/ui/password-input.tsx';
 import { useAuth } from '@/core/hooks/useAuth.tsx';
 import { hasNumbers, hasSpecialCharacters, hasUppercaseCharacters } from '@/core/util/zod-util.ts';
+import { useTranslation } from 'react-i18next';
 
 const RegisterSchema = z.object({
   username: z
@@ -49,6 +50,7 @@ export function RegisterPasswordPanel() {
   const progress = useLoading(loading);
   const { register } = useAuth();
   const email = location?.state?.email;
+  const { t } = useTranslation();
 
   const registerForm = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
@@ -65,7 +67,7 @@ export function RegisterPasswordPanel() {
     setLoading(true);
     register(email, values.username, values.password, values.firstName, values.lastName).then(() => {
       setLoading(false);
-      navigate('/movesong-frontend/register/confirm');
+      navigate('/movesong-frontend/register/confirm', { state: { email } });
     });
   }
 
@@ -81,7 +83,9 @@ export function RegisterPasswordPanel() {
     <PanelContainer>
       <Card className={`w-[350px]`}>
         <CardHeader>
-          <CardTitle className={`flex justify-center scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>Create Your Account</CardTitle>
+          <CardTitle className={`flex justify-center scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>
+            {t('auth.register.passwordPanel.header')}
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...registerForm}>
@@ -92,7 +96,7 @@ export function RegisterPasswordPanel() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input placeholder="Username" {...field} />
+                      <Input placeholder={t('auth.register.passwordPanel.usernameInputPlaceholder')} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -104,7 +108,7 @@ export function RegisterPasswordPanel() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input placeholder="First name" {...field} />
+                      <Input placeholder={t('auth.register.passwordPanel.firstNameInputPlaceholder')} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -116,7 +120,7 @@ export function RegisterPasswordPanel() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input placeholder="Last name" {...field} />
+                      <Input placeholder={t('auth.register.passwordPanel.lastNameInputPlaceholder')} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -128,7 +132,7 @@ export function RegisterPasswordPanel() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <PasswordInput placeholder="Password" {...field} />
+                      <PasswordInput placeholder={t('auth.register.passwordPanel.passwordInputPlaceholder')} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -140,7 +144,7 @@ export function RegisterPasswordPanel() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <PasswordInput placeholder="Confirm password" {...field} />
+                      <PasswordInput placeholder={t('auth.register.passwordPanel.confirmPasswordInputPlaceholder')} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -150,19 +154,21 @@ export function RegisterPasswordPanel() {
                 onClick={registerForm.handleSubmit(onSubmit)}
                 loading={loading}
                 progress={progress}
-                buttonText="Register"
+                buttonText={t('auth.register.passwordPanel.buttonText')}
                 className="w-full primaryButton"
               />
             </form>
           </Form>
-          <Button className={`w-full ${useButtonTheme()} transition-transform hover:scale-105 mt-2`} onClick={handleReturnClick}>Register with different email</Button>
+          <Button className={`w-full ${useButtonTheme()} transition-transform hover:scale-105 mt-2`} onClick={handleReturnClick}>
+            {t('auth.register.passwordPanel.registerWithDifferentEmailButtonText')}
+          </Button>
         </CardContent>
         <CardFooter className={`flex-col grid gap-2 items-start`}>
           <div className={`flex`}>
             <CardDescription>
-              Already have an account?
+              {t('auth.register.passwordPanel.alreadyHaveAnAccountText')}
               <Button onClick={handleLoginClick} className={`p-0 ml-1`} variant={`link`}>
-                <p className={`sm:text-s`}>Log in</p>
+                <p className={`sm:text-s`}>{t('auth.register.passwordPanel.alreadyHaveAnAccountButtonText')}</p>
               </Button>
             </CardDescription>
           </div>

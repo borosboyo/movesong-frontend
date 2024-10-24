@@ -14,7 +14,7 @@ const RegisterService = {
 
   resendEnable: async function(email: string): Promise<EnableResp> {
     const response = await this.userApi.resendEnable({
-      email: usernameOrEmail,
+      email,
     }, baseOptions);
     return response.data;
   }
