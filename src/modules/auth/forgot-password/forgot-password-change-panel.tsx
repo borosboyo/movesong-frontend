@@ -39,7 +39,7 @@ export function ForgotPasswordChangePanel() {
   const [loading, setLoading] = useState(false);
   const progress = useLoading(loading);
   const { toast } = useToast();
-  const handleErrors = useHandleError();
+  const handleError = useHandleError();
   const email = location?.state?.email;
   const { t } = useTranslation();
 
@@ -73,7 +73,7 @@ export function ForgotPasswordChangePanel() {
       }
     } catch (error) {
       setLoading(false);
-      handleErrors(error);
+      handleError(error);
     } finally {
       setLoading(false);
     }
@@ -81,22 +81,25 @@ export function ForgotPasswordChangePanel() {
 
   return (
     <PanelContainer>
-      <Card className={`w-[400px]`}>
+      <Card className="w-full max-w-[400px] p-4 sm:p-6 md:p-8 lg:p-10">
         <CardHeader>
-          <CardTitle className={`flex justify-center scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>
+          <CardTitle className="text-center text-2xl font-bold sm:text-3xl lg:text-4xl">
             {t('auth.forgotPassword.changePanel.header')}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...forgotPasswordForm}>
-            <form onSubmit={forgotPasswordForm.handleSubmit(onSubmit)} className="space-y-2">
+            <form onSubmit={forgotPasswordForm.handleSubmit(onSubmit)} className="space-y-4">
               <FormField
                 control={forgotPasswordForm.control}
                 name="newPassword"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <PasswordInput placeholder={t('auth.forgotPassword.changePanel.passwordInputPlaceholder')} {...field} />
+                      <PasswordInput
+                        placeholder={t('auth.forgotPassword.changePanel.passwordInputPlaceholder')}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -108,7 +111,10 @@ export function ForgotPasswordChangePanel() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <PasswordInput placeholder={t('auth.forgotPassword.changePanel.confirmPasswordInputPlaceholder')} {...field} />
+                      <PasswordInput
+                        placeholder={t('auth.forgotPassword.changePanel.confirmPasswordInputPlaceholder')}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

@@ -26,7 +26,7 @@ import {
 } from '@/shared/components/ui/dropdown-menu.tsx';
 import { Input } from '@/shared/components/ui/input.tsx';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/shared/components/ui/table.tsx';
-import { ShareDto } from '@/swagger/share/models/share-dto';
+import { ShareDto } from '@/swagger/share/models/share-dto.ts';
 import profileService from '@/modules/profile/profile-service.ts';
 import { useAuth } from '@/core/hooks/useAuth.tsx';
 import { useHandleError } from '@/core/hooks/useHandleError.ts';

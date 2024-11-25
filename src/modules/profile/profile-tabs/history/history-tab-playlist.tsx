@@ -14,6 +14,10 @@ import { ShareIcon } from '@/shared/icons/share-icon.tsx';
 import { ShareDto } from '@/swagger/share/models/share-dto.ts';
 import { useToast } from '@/shared/components/ui/use-toast.ts';
 import { iconMap } from '@/modules/transform/transform-panel.tsx';
+import { v4 as uuidv4 } from 'uuid';
+import placeholder from '@/assets/placeholder.jpg';
+import transformService from '@/modules/transform/transform-service.ts';
+import { useAuth } from '@/core/hooks/useAuth.tsx';
 
 export function HistoryTabPlaylist({ transform }: { transform: TransformDto }) {
   const [loading, setLoading] = useState(false);
@@ -23,63 +27,57 @@ export function HistoryTabPlaylist({ transform }: { transform: TransformDto }) {
   const handleError = useHandleError();
   const { t } = useTranslation();
   const { toast } = useToast();
+  const { user } = useAuth();
 
   useEffect(() => {
-    if (isOpen && !hasOpened && transform?.originPlaylistId != null && transform?.ownerMovesongEmail != null) {
+    if (isOpen && !hasOpened && user?.email) {
       setLoading(true);
-      setHasOpened(true);
-      if (transform.originPlatform === 'YOUTUBE') {
-        ProfileService.getItemsInYoutubePlaylist(transform.originPlaylistId, transform.ownerMovesongEmail)
-          .then(data => {
-            if (data.items) {
-              setPlaylistItems(data.items);
-            }
-            setLoading(false);
-          })
-          .catch(error => {
-            handleError(error);
-            setLoading(false);
-          });
-      } else if (transform.originPlatform === 'SPOTIFY') {
-        ProfileService.getItemsInSpotifyPlaylist(transform.originPlaylistId, transform.ownerMovesongEmail)
-          .then(data => {
-            if (data.items) {
-              setPlaylistItems(data.items);
-            }
-            setLoading(false);
-          })
-          .catch(error => {
-            handleError(error);
-            setLoading(false);
-          });
-      }
+      setHasOpened(!hasOpened);
+      const fetchPlaylistItems = async () => {
+        try {
+          let resp;
+          if (transform.destinationPlatform === 'YOUTUBE' && user?.email && transform.destinationPlaylistId) {
+            resp = await transformService.getItemsInYoutubePlaylist(user?.email, transform.destinationPlaylistId);
+          } else if (transform.destinationPlatform === 'SPOTIFY' && user?.email && transform.destinationPlaylistId) {
+            resp = await transformService.getItemsInSpotifyPlaylist(user?.email, transform.destinationPlaylistId);
+          }
+          if (resp?.items) {
+            setPlaylistItems(resp.items);
+          }
+        } catch (error) {
+          handleError(error);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchPlaylistItems().then(r => r);
     }
-  }, [isOpen, hasOpened, transform, handleError]);
+  }, [isOpen, playlistItems.length, user?.email, transform.destinationPlaylistId, handleError, transform.itemCount, transform.destinationPlatform]);
 
   const handleSharePlaylistClick = () => {
     const req: ShareDto = {
       id: 0,
       playlistId: transform.destinationPlaylistId,
       sharedPlaylistName: transform.playlistName,
-      ownerMovesongEmail: transform.ownerMovesongEmail,
+      movesongEmail: transform.movesongEmail,
       views: 0,
       sharePlatformType: transform.destinationPlatform,
       visible: true,
       selectedBackgroundId: 0,
-      thumbnailUrl: transform.thumbnailUrl
-    }
+      thumbnailUrl: transform.thumbnailUrl,
+    };
     ProfileService.createShare(req)
       .then(() => {
         toast({
           title: t('profile.historyTab.shareSuccessToast.title'),
           description: t('profile.historyTab.shareSuccessToast.description'),
           variant: 'success',
-        })
+        });
       })
       .catch(error => {
         handleError(error);
       });
-  }
+  };
 
   return (
     <Collapsible
@@ -88,7 +86,7 @@ export function HistoryTabPlaylist({ transform }: { transform: TransformDto }) {
       className={`space-y-2`}>
       <div className={`flex flex-row justify-content items-center gap-10`}>
         <div className={`flex flex-row justify-content items-center gap-2`}>
-          <img src={transform.thumbnailUrl || `/src/assets/placeholder.jpg`} alt={`placeholder`} className={`w-10 h-10 object-cover`} />
+          <img src={transform.thumbnailUrl || placeholder} alt={`placeholder`} className={`w-10 h-10 object-cover`} />
           <div className={`flex flex-row gap-2`}>
             <div className="flex flex-col">
               <h4 className="text-sm font-semibold">
@@ -108,9 +106,10 @@ export function HistoryTabPlaylist({ transform }: { transform: TransformDto }) {
           {iconMap[transform.originPlatform!]}
           <ArrowRightIcon />
           {iconMap[transform.destinationPlatform!]}
-          <Button onClick={handleSharePlaylistClick} variant={`ghost`} className={`ml-5`}>
+          {(transform.destinationPlatform !== 'TXT' && transform.destinationPlatform !== 'CSV') ?
+            <Button onClick={handleSharePlaylistClick} variant={`ghost`} className={`ml-5`}>
             <ShareIcon size={20} />
-          </Button>
+          </Button> : <></>}
         </div>
       </div>
       <CollapsibleContent className={`ml-6 flex flex-col gap-2 space-y-2`}>
@@ -119,7 +118,7 @@ export function HistoryTabPlaylist({ transform }: { transform: TransformDto }) {
           <LoadingSpinner />
           :
           playlistItems.map((item) => (
-            <div key={item.title} className={`flex flex-row justify-content items-center gap-2`}>
+            <div key={uuidv4()} className={`flex flex-row justify-content items-center gap-2`}>
               <img src={item.thumbnailUrl} alt={item.title} className={`w-10 h-10 object-cover`} />
               <div className={`flex flex-row items-center gap-4`}>
                 <div className="flex flex-col">

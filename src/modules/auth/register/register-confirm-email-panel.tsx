@@ -71,7 +71,7 @@ export function RegisterConfirmEmailPanel() {
             {t('auth.register.confirmEmailPanel.header')}
           </CardTitle>
           <CardDescription>
-            {t('auth.register.confirmEmailPanel.text')} test@test.com.
+            {t('auth.register.confirmEmailPanel.text')} {userEmail}.
           </CardDescription>
         </CardHeader>
         <CardContent>

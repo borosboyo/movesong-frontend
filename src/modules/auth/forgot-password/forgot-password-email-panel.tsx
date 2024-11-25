@@ -26,7 +26,7 @@ export function ForgotPasswordEmailPanel() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const progress = useLoading(loading);
-  const handleErrors = useHandleError();
+  const handleError = useHandleError();
   const { toast } = useToast();
   const { t } = useTranslation();
 
@@ -54,7 +54,7 @@ export function ForgotPasswordEmailPanel() {
       }
     } catch (error) {
       setLoading(false);
-      handleErrors(error);
+      handleError(error);
     } finally {
       setLoading(false);
     }

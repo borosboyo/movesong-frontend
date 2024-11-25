@@ -10,6 +10,8 @@ import profileService from '@/modules/profile/profile-service.ts';
 import { ConnectionDto } from '@/swagger/transform/models/connection-dto';
 import { useHandleError } from '@/core/hooks/useHandleError';
 import { useTranslation } from 'react-i18next';
+import youtubeMusicIcon from '@/assets/youtube-music/youtube-music-icon.webp';
+import spotifyIcon from '@/assets/spotify/spotify-icon.webp';
 
 export function NewConnectionPanel() {
   const navigate = useNavigate();
@@ -67,13 +69,13 @@ export function NewConnectionPanel() {
           <div className={`flex flex-row items-center`}>
             {availableConnectionTypes.includes('YOUTUBE') && (
               <Button onClick={() => googleLogin()} variant={`ghost`} aria-label="Youtube Music" className={`w-36 h-36 flex-col`}>
-                <img className={`w-36 h-36  object-cover`} src={`/src/assets/youtube-music/youtube-music-icon.webp`} alt={`youtube-music`} />
+                <img className={`w-36 h-36  object-cover`} src={youtubeMusicIcon} alt={`youtube-music`} />
                 <span className={`text-s font-extrabold tracking-tight lg:text-s`}>Youtube Music</span>
               </Button>
             )}
             {availableConnectionTypes.includes('SPOTIFY') && (
               <Button onClick={spotifyLogin} variant={`ghost`} aria-label="Spotify" className={`w-36 h-36  flex-col`}>
-                <img className={`w-36 h-36 object-cover`} src={`/src/assets/spotify/spotify-icon.webp`} alt={`spotify`} />
+                <img className={`w-36 h-36 object-cover`} src={spotifyIcon} alt={`spotify`} />
                 <span className={`text-s font-extrabold tracking-tight lg:text-s`}>Spotify</span>
               </Button>
             )}

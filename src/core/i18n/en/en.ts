@@ -31,7 +31,7 @@ export const en = {
       termsOfUseText: 'Terms of use',
       privacyPolicyText: 'Privacy policy',
       packagesText: 'Packages',
-      transformText: 'Transform playlist',
+      transformText: 'Transform',
     },
 
 
@@ -44,17 +44,17 @@ export const en = {
 
       landingIntroduction: {
         header: 'What is Movesong?',
-        subtitle: 'Nullam sed ipsum in odio euismod mollis at in orci. Cras eu molestie turpis. Integer ultrices urna vitae tellus ultrices, egestas tristique nisl volutpat. Nulla facilisi. Mauris pulvinar pellentesque neque. Phasellus at pretium lectus. Fusce vel risus eu lacus laoreet facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sed ipsum in odio euismod mollis at in orci. Cras eu molestie turpis. Integer ultrices urna vitae tellus ultrices, egestas tristique nisl volutpat. Nulla facilisi. Mauris pulvinar pellentesque neque. ',
+        subtitle: 'Movesong is a versatile music platform designed to make playlist management effortless across multiple streaming services. It enables users to seamlessly transfer their playlists from one music service to another, ensuring they never lose their favorite tracks. With intuitive tools, Movesong simplifies creating, editing, and sharing playlists, making music discovery and sharing more social and accessible. Users can explore a wide range of musical content, find new tunes, and ensure their music library is always in sync, regardless of the platform they prefer.',
       },
 
       landingPopularFeatures: {
         header: 'The coolest features.',
-        transferHeader: 'Transfer',
-        transferSubtitle: 'Nullam sed ipsum in odio euismod mollis at in orci. Cras eu molestie turpis.',
+        transferHeader: 'Transform',
+        transferSubtitle: 'Movesong lets you easily transform your playlists across different music platforms.',
         syncHeader: 'Synchronize',
-        syncSubtitle: 'Nullam sed ipsum in odio euismod mollis at in orci. Cras eu molestie turpis.',
+        syncSubtitle: 'Synchronize your music effortlessly so you can enjoy the same playlists on all your devices.',
         shareHeader: 'Share',
-        shareSubtitle: 'Nullam sed ipsum in odio euismod mollis at in orci. Cras eu molestie turpis.',
+        shareSubtitle: 'Share your favorite songs and playlists with friends in just one click.',
       },
 
       landingPopularPlatforms: {
@@ -210,7 +210,7 @@ export const en = {
           title: 'Oops!',
           description: 'Something went wrong. Please try again.',
         },
-        buttonText: 'Take me to my profile.',
+        buttonText: 'Take me to my profile',
       },
       youtubeConnectedPanel: {
         successToast: {
@@ -221,7 +221,7 @@ export const en = {
           title: 'Oops!',
           description: 'Something went wrong. Please try again.',
         },
-        buttonText: 'Take me to my profile.',
+        buttonText: 'Take me to my profile',
       },
     },
 
@@ -302,7 +302,7 @@ export const en = {
         header: 'Free package summary',
         benefit1: 'Max 500 song transfers',
         benefit2: 'No automatic synchronization',
-        benefit3: 'Export to TXT / CSV',
+        benefit3: 'No export to TXT / CSV',
       },
       premiumPackage: {
         header: 'Switch to premium!',
@@ -341,6 +341,7 @@ export const en = {
         notPremium: 'You are not a premium member.',
         logOutButtonText: 'Log out',
         deleteAccountButtonText: 'Delete account',
+        cancelSubscriptionButtonText: 'Cancel subscription',
         logOutPopover: {
           header: 'Log out',
           text: 'Are you sure you want to log out?',
@@ -350,6 +351,11 @@ export const en = {
           header: 'Are you sure you want to delete your account?',
           text: 'This action cannot be undone.',
           buttonText: 'Delete account',
+        },
+        cancelSubscriptionPopover: {
+          header: 'Are you sure you want to cancel your subscription?',
+          text: 'This action cannot be undone.',
+          buttonText: 'Cancel subscription',
         },
         account: 'Account',
         premium: 'Premium account',
@@ -362,6 +368,14 @@ export const en = {
         logoutSuccessToast: {
           title: 'Yay!',
           description: 'You have been logged out successfully.',
+        },
+        deleteAccountSuccessToast: {
+          title: 'Yay!',
+          description: 'Your account has been deleted successfully.',
+        },
+        cancelSubscriptionSuccessToast: {
+          title: 'Yay!',
+          description: 'Your subscription has been canceled successfully.',
         },
         noConnections: 'You have no connections yet.',
         newConnection: 'New connection',
@@ -426,9 +440,54 @@ export const en = {
           },
         },
       },
-      syncTab: {
+      syncsTab: {
         header: 'Synchronizations',
         newSyncButtonText: 'New synchronization',
+        syncsTable: {
+          filterPlaylists: "Filter playlists...",
+          actions: "Actions",
+          copyLink: "Copy playlist link",
+          share: "Share",
+          openOnPlatform: "Open on platform",
+          openMenu: "Open menu",
+          noResults: "No results.",
+          lastSyncDate: "Last sync date",
+          interval: "Interval",
+          enabled: "Enabled",
+          disabled: "Disabled",
+          playlistName: "Playlist name",
+          date: "Date",
+          views: "Views",
+          selectAll: "Select all",
+          selectRow: "Select row",
+          visible: "Status",
+          selected: "row selected.",
+          next: "Next",
+          previous: "Previous",
+          columns: "Columns",
+          open: "Open",
+          changeStatus: "Change status",
+          changeStatusToast: {
+            title: 'Yay!',
+            description: 'Status changed successfully.',
+          },
+          deleteToast: {
+            title: 'Yay!',
+            description: 'Synchronization deleted successfully.',
+          },
+          changeIntervalToast: {
+            title: 'Yay!',
+            description: 'Interval changed successfully.',
+          },
+          changeInterval: 'Change interval',
+          delete: 'Delete',
+          changeIntervalDialog: {
+            header: 'Change interval',
+            text: 'Select the interval for synchronization. Click save when you are done.',
+            interval: 'Interval',
+            buttonText: 'Save',
+          },
+        },
       },
       welcome: 'Welcome,',
     },
@@ -481,7 +540,23 @@ export const en = {
       },
     },
 
+    sync: {
+      source: 'SOURCE',
+      destination: 'DESTINATION',
+      interval: 'INTERVAL',
+      hourly: 'Hourly',
+      daily: 'Daily',
+      weekly: 'Weekly',
+      syncSuccessfulToast: {
+        title: 'Yay!',
+        description: 'Synchronization completed successfully.',
+      },
+      intervalPlaceholder: 'Select interval',
+      syncButtonText: 'Synchronize',
+    },
+
     termsOfService: {
+      header: 'Terms of Service',
       firstHeader: '1. Terms',
       firstText: 'By accessing the website at https://www.movesong.com, you are agreeing to be bound by these terms of service, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this website are protected by applicable copyright and trademark law.',
       secondHeader: '2. Use License',

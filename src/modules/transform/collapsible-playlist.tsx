@@ -9,13 +9,16 @@ import transformService from '@/modules/transform/transform-service.ts';
 import { LoadingSpinner } from '@/shared/components/util/spinner.tsx';
 import { useTransform } from '@/core/hooks/useTransform.tsx';
 import { Checkbox } from '@/shared/components/ui/checkbox.tsx';
+import { v4 as uuidv4 } from 'uuid';
+import placeholder from '@/assets/placeholder.jpg';
+import { FindSubscriptionResp } from '@/swagger/subscription';
 
-export function CollapsiblePlaylist({ playlist }: { playlist: PlaylistDto | undefined }) {
+export function CollapsiblePlaylist({ playlist, platform, subscription }: { playlist: PlaylistDto | undefined, platform: string, subscription?: FindSubscriptionResp | null }) {
   const [isOpen, setIsOpen] = useState(false);
   const [playlistItems, setPlaylistItems] = useState<PlaylistItemDto[]>([]);
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
-  const { source, selectedPlaylistId, setSelectedPlaylistId, setSelectedPlaylist } = useTransform();
+  const { selectedPlaylistId, setSelectedPlaylistId, setSelectedPlaylist } = useTransform();
   const handleError = useHandleError();
 
   useEffect(() => {
@@ -24,9 +27,9 @@ export function CollapsiblePlaylist({ playlist }: { playlist: PlaylistDto | unde
       const fetchPlaylistItems = async () => {
         try {
           let resp;
-          if (source === 'YOUTUBE' && user?.email && playlist?.id) {
+          if (platform === 'YOUTUBE' && user?.email && playlist?.id) {
             resp = await transformService.getItemsInYoutubePlaylist(user?.email, playlist.id);
-          } else if (source === 'SPOTIFY' && user?.email && playlist?.id) {
+          } else if (platform === 'SPOTIFY' && user?.email && playlist?.id) {
             resp = await transformService.getItemsInSpotifyPlaylist(user?.email, playlist.id);
           }
           if (resp?.items) {
@@ -40,7 +43,7 @@ export function CollapsiblePlaylist({ playlist }: { playlist: PlaylistDto | unde
       };
       fetchPlaylistItems().then(r => r);
     }
-  }, [isOpen, playlistItems.length, user?.email, source, playlist?.id, handleError]);
+  }, [isOpen, playlistItems.length, user?.email, playlist?.id, handleError]);
 
   const handleCheckboxChange = () => {
     if (playlist?.id) {
@@ -59,9 +62,10 @@ export function CollapsiblePlaylist({ playlist }: { playlist: PlaylistDto | unde
         <Checkbox
           checked={selectedPlaylistId === playlist?.id}
           onCheckedChange={handleCheckboxChange}
+          disabled={playlist != null && playlist.itemCount != null && playlist.itemCount > 499 && subscription == null}
           className={`h-4 w-4`}
         />
-        <img src={playlist?.thumbnailUrl || `/src/assets/placeholder.jpg`} alt={`playlist-cover`} className={`w-10 h-10 object-cover`} />
+        <img src={playlist?.thumbnailUrl || placeholder} alt={`playlist-cover`} className={`w-10 h-10 object-cover`} />
         <div className="flex flex-col">
           <h4 className="text-sm font-semibold">
             {playlist?.title}
@@ -79,8 +83,8 @@ export function CollapsiblePlaylist({ playlist }: { playlist: PlaylistDto | unde
           <LoadingSpinner />
         ) : (
           playlistItems.map(song => (
-            <div key={song.title} className={`flex flex-row justify-content items-center gap-2`}>
-              <img src={song.thumbnailUrl !== '' && song.thumbnailUrl != null ? song.thumbnailUrl : `/src/assets/placeholder.jpg`} alt={`song-cover`} className={`w-10 h-10 object-cover`} />              <div className="flex flex-col">
+            <div key={uuidv4()} className={`flex flex-row justify-content items-center gap-2`}>
+              <img src={song.thumbnailUrl !== '' && song.thumbnailUrl != null ? song.thumbnailUrl : placeholder} alt={`song-cover`} className={`w-10 h-10 object-cover`} />              <div className="flex flex-col">
                 <h4 className="text-sm font-semibold">{song.title}</h4>
                 <span className={`text-sm text-muted-foreground`}>{song.channelTitle}</span>
               </div>

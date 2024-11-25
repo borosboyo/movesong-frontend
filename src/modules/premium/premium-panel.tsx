@@ -29,9 +29,9 @@ export default function PremiumPanel() {
 
   return (
     <PanelContainer>
-      <div className={`flex flex-col gap-4`}>
+      <div className={`flex flex-col gap-4 items-center`}>
         {subscription ? <AlreadyPremiumCard /> : <PremiumCard />}
-        <Card className={`w-[500px]`}>
+        <Card className={`w-4/5 lg:w-[500px]`}>
           <CardHeader>
             <CardTitle className={`flex scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>
               {t('premium.freePackage.header')}
@@ -62,7 +62,7 @@ function PremiumCard() {
   const monthlyProgress = useLoading(monthlyLoading);
   const yearlyProgress = useLoading(yearlyLoading);
   const { isLoggedIn, user } = useAuth();
-  const handleErrors = useHandleError();
+  const handleError = useHandleError();
   const { toast } = useToast();
   const { setCustomerId } = useCustomerId();
 
@@ -94,7 +94,7 @@ function PremiumCard() {
         })
         .catch((error) => {
           setMonthlyLoading(false);
-          handleErrors(error);
+          handleError(error);
         });
     }
   };
@@ -119,13 +119,13 @@ function PremiumCard() {
         })
         .catch((error) => {
           setYearlyLoading(false);
-          handleErrors(error);
+          handleError(error);
         });
     }
   }
 
   return (
-    <Card className={`w-[500px]`}>
+    <Card className={`w-4/5 lg:w-[500px]`}>
       <CardHeader>
         <CardTitle className={`flex scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>
           {t('premium.premiumPackage.header')}

@@ -28,7 +28,7 @@ export function ForgotPasswordOtpPanel() {
   const [loading, setLoading] = useState(false);
   const progress = useLoading(loading);
   const { toast } = useToast();
-  const handleErrors = useHandleError();
+  const handleError = useHandleError();
   const email = location?.state?.email;
   const { t } = useTranslation();
 
@@ -56,7 +56,7 @@ export function ForgotPasswordOtpPanel() {
       }
     } catch (error) {
       setLoading(false);
-      handleErrors(error);
+      handleError(error);
     } finally {
       setLoading(false);
     }
@@ -64,7 +64,7 @@ export function ForgotPasswordOtpPanel() {
 
   const handleResendEmail = async () => {
     try {
-      const resp = await forgotPasswordService.resendForgotPassword(email);
+      const resp = await forgotPasswordService.forgotPassword(email);
       if(resp.success) {
         toast({
           title: t('auth.forgotPassword.otpPanel.resendEmailSuccessToast.title'),
@@ -78,7 +78,7 @@ export function ForgotPasswordOtpPanel() {
         });
       }
     } catch (error) {
-      handleErrors(error);
+      handleError(error);
     }
   };
 
@@ -90,7 +90,7 @@ export function ForgotPasswordOtpPanel() {
             {t('auth.forgotPassword.otpPanel.header')}
           </CardTitle>
           <CardDescription>
-            {t('auth.forgotPassword.otpPanel.description')} { email }
+            {t('auth.forgotPassword.otpPanel.text')} { email }
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -138,7 +138,7 @@ export function ForgotPasswordOtpPanel() {
             <CardDescription>
               {t('auth.forgotPassword.otpPanel.resendEmailText')}
               <Button onClick={handleResendEmail} className={`p-0 ml-1`} variant={`link`}>
-                <p className={`sm:text-s`}>{t('auth.forgotPassword.otpPanel.resendButtonText')}</p>
+                <p className={`sm:text-s`}>{t('auth.forgotPassword.otpPanel.resendEmailButtonText')}</p>
               </Button>
             </CardDescription>
           </div>

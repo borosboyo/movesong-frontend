@@ -7,6 +7,8 @@ import transformService from '@/modules/transform/transform-service.ts';
 import { ToggleGroup, ToggleGroupItem } from '@/shared/components/ui/toggle-group.tsx';
 import { useTransform } from '@/core/hooks/useTransform.tsx';
 import { useTranslation } from 'react-i18next';
+import spotifyIcon from '@/assets/spotify/spotify-icon.webp';
+import youtubeMusicIcon from '@/assets/youtube-music/youtube-music-icon.webp';
 
 export function SourceTab() {
   const { t } = useTranslation();
@@ -14,13 +16,15 @@ export function SourceTab() {
   const handleError = useHandleError();
   const [connections, setConnections] = useState<ConnectionDto[]>([]);
   const [availableSources, setAvailableSources] = useState<string[]>([]);
-  const { setSource } = useTransform();
+  const { setSource, reset } = useTransform();
 
   useEffect(() => {
+    reset();
     if (user?.email) {
       transformService.findConnectionsByMovesongEmail(user.email).then((resp) => {
         if (resp.connections) {
           setConnections(resp.connections);
+          setSource('');
         }
       }).catch((error) => handleError(error));
     }
@@ -57,12 +61,12 @@ export function SourceTab() {
               <ToggleGroup type={`single`} variant={`outline`} className="grid grid-cols-2 gap-4">
                 <ToggleGroupItem disabled={!availableSources.includes('YOUTUBE')} value={`youtube`} onClick={() => setSource('YOUTUBE')} aria-label="Youtube Music"
                                  className={`w-36 h-36 flex-col p-5`}>
-                  <img className={`w-36 h-36 object-cover`} src={`/src/assets/youtube-music/youtube-music-icon.webp`} alt={`youtube-music`} />
+                  <img className={`w-36 h-36 object-cover`} src={youtubeMusicIcon} alt={`youtube-music`} />
                   <span className={`text-s font-extrabold tracking-tight lg:text-s`}>Youtube Music</span>
                 </ToggleGroupItem>
                 <ToggleGroupItem disabled={!availableSources.includes('SPOTIFY')} value={`spotify`} onClick={() => setSource('SPOTIFY')} aria-label="Spotify"
                                  className={`w-36 h-36 flex-col p-5`}>
-                  <img className={`w-36 h-36 object-cover`} src={`/src/assets/spotify/spotify-icon.webp`} alt={`spotify`} />
+                  <img className={`w-36 h-36 object-cover`} src={spotifyIcon} alt={`spotify`} />
                   <span className={`text-s font-extrabold tracking-tight lg:text-s`}>Spotify</span>
                 </ToggleGroupItem>
               </ToggleGroup>

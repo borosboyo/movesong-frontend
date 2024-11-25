@@ -9,6 +9,8 @@ import { PlaylistDto } from '@/swagger/transform';
 import { LoadingSpinner } from '@/shared/components/util/spinner.tsx';
 import { useTransform } from '@/core/hooks/useTransform.tsx';
 import { useTranslation } from 'react-i18next';
+import premiumService from '@/modules/premium/premium-service.ts';
+import { FindSubscriptionResp } from '@/swagger/subscription';
 
 export function PlaylistTab() {
   const { t } = useTranslation();
@@ -17,6 +19,7 @@ export function PlaylistTab() {
   const [playlists, setPlaylists] = useState<PlaylistDto[]>([]);
   const [loading, setLoading] = useState(false);
   const { source } = useTransform();
+  const [subscription, setSubscription] = useState<FindSubscriptionResp | null>(null);
 
   useEffect(() => {
     if (user?.email) {
@@ -35,7 +38,15 @@ export function PlaylistTab() {
         }).catch((error) => handleError(error)).finally(() => setLoading(false));
       }
     }
-  }, [source, user?.email]);
+  }, [user?.email, source]);
+
+  useEffect(() => {
+    if (user?.email) {
+      premiumService.findSubscriptionByUserEmail(user.email).then((resp) => {
+        setSubscription(resp);
+      }).catch((error) => handleError(error));
+    }
+  }, [user?.email]);
 
   return (
     <Card>
@@ -49,7 +60,7 @@ export function PlaylistTab() {
             {loading && <LoadingSpinner />}
             {playlists.map(playlist => (
               <div key={playlist.id} className={`flex flex-row items-center gap-2`}>
-                <CollapsiblePlaylist playlist={playlist} />
+                 <CollapsiblePlaylist subscription={subscription} platform={source} playlist={playlist} />
               </div>
             ))}
           </div>

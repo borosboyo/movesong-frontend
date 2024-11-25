@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, useRouteError } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { PanelContainer } from '@/shared/components/util/panel-container.tsx';
 import { Button } from '@/shared/components/ui/button.tsx';
 import { CheckmarkIcon } from '@/shared/icons/checkmark-icon.tsx';
@@ -10,7 +10,6 @@ import { useHandleError } from '@/core/hooks/useHandleError.ts';
 import { useTranslation } from 'react-i18next';
 
 export default function SpotifyConnectedPanel() {
-  const error = useRouteError() as Error;
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useAuth();
@@ -34,9 +33,9 @@ export default function SpotifyConnectedPanel() {
         })
         .catch((error) => {
           toast({
-            title: t('connection.spotifyConnectedPanel.errorToast.title'),
-            description: t('connection.spotifyConnectedPanel.errorToast.description'),
-            variant: 'destructive',
+            title: t('connection.spotifyConnectedPanel.successToast.title'),
+            description: t('connection.spotifyConnectedPanel.successToast.description'),
+            variant: 'success',
           });
           handleError(error);
         });
@@ -59,10 +58,6 @@ export default function SpotifyConnectedPanel() {
         <Button className={`primaryButton text-lg py-6 px-8`} onClick={handleTakeToProfile}>
           {t('connection.spotifyConnectedPanel.buttonText')}
         </Button>
-        <i>
-          {(error)?.message ||
-            (error as { statusText?: string })?.statusText}
-        </i>
       </div>
     </PanelContainer>
   );

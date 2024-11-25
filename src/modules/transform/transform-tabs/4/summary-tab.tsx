@@ -83,7 +83,7 @@ export function SummaryTab() {
         </div>
         <ScrollArea className={`h-[250px]`}>
           <div className={`flex flex-col gap-2`}>
-            <CollapsiblePlaylist playlist={selectedPlaylist} />
+            <CollapsiblePlaylist platform={source} playlist={selectedPlaylist} />
           </div>
         </ScrollArea>
         <div className="flex justify-center mt-12">

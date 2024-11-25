@@ -24,6 +24,11 @@ import { useTranslation } from 'react-i18next';
 import { useToast } from '@/shared/components/ui/use-toast';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/core/hooks/useAuth.tsx';
+import { useTransform } from '@/core/hooks/useTransform.tsx';
+import transformService from '@/modules/transform/transform-service.ts';
+import spotifyIcon from '@/assets/spotify/spotify-icon.webp';
+import youtubeMusicIcon from '@/assets/youtube-music/youtube-music-icon.webp';
+import placeholder from '@/assets/placeholder.jpg';
 
 const ShareSchema = z.object({
   playlistName: z.string(),
@@ -51,19 +56,20 @@ export function SharePanel() {
   const handleError = useHandleError();
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { setSource, setSelectedPlaylistId, setSelectedPlaylist } = useTransform();
 
   useEffect(() => {
     setLoading(true);
     if (shareId) {
       shareService.getShareById(parseInt(shareId))
         .then((resp) => {
-          if (resp?.share?.playlistId && resp?.share?.ownerMovesongEmail) {
+          if (resp?.share?.playlistId && resp?.share?.movesongEmail) {
             setShare(resp.share);
             if (!resp.share.visible) {
               navigate('/movesong-frontend/404');
             }
             if (resp.share?.sharePlatformType === 'YOUTUBE') {
-              shareService.getItemsInYoutubePlaylist(resp.share.playlistId, resp.share.ownerMovesongEmail).then((resp) => {
+              shareService.getItemsInYoutubePlaylist(resp.share.playlistId, resp.share.movesongEmail).then((resp) => {
                 if (resp.items) {
                   setPlaylistItems(resp.items);
                 }
@@ -71,7 +77,7 @@ export function SharePanel() {
                 handleError(error);
               });
             } else if (resp.share?.sharePlatformType === 'SPOTIFY') {
-              shareService.getItemsInSpotifyPlaylist(resp.share.playlistId, resp.share.ownerMovesongEmail).then((resp) => {
+              shareService.getItemsInSpotifyPlaylist(resp.share.playlistId, resp.share.movesongEmail).then((resp) => {
                 if (resp.items) {
                   setPlaylistItems(resp.items);
                 }
@@ -142,8 +148,28 @@ export function SharePanel() {
     }
   };
 
+  const handleImportClick = () => {
+    if(share?.sharePlatformType === 'YOUTUBE') {
+      transformService.getUserYoutubePlaylistByPlaylistId(share!.movesongEmail!, share!.playlistId!).then((resp) => {
+        setSelectedPlaylist(resp.playlist);
+        setSource(share!.sharePlatformType!);
+        setSelectedPlaylistId(share!.playlistId!);
+        navigate('/movesong-frontend/transform', { state: { startTab: 2 } });
+      }).catch((error) => handleError(error));
+    } else {
+      transformService.getUserSpotifyPlaylistByPlaylistId(share!.movesongEmail!, share!.playlistId!).then((resp) => {
+        setSelectedPlaylist(resp.playlist);
+        setSource(share!.sharePlatformType!);
+        setSelectedPlaylistId(share!.playlistId!);
+        navigate('/movesong-frontend/transform', { state: { startTab: 2 } });
+      }).catch((error) => handleError(error));
+    }
+  };
+
+
+
   return (
-    <div className="relative w-full">
+    <div className={`relative w-full ${playlistItems.length < 10 ? 'h-full' : ''} `}>
       <SharePanelBackgrounds selectedBackgroundId={selectedAvatar} />
       <motion.div
         initial={{ opacity: 0, scale: 0.5 }}
@@ -160,7 +186,7 @@ export function SharePanel() {
             <div className={`absolute top-2 right-2`}>
               <Dialog>
                 <DialogTrigger asChild>
-                  {user?.email === share?.ownerMovesongEmail
+                  {user?.email === share?.movesongEmail
                     &&
                     <Button variant={`ghost`}>
                       <EditIcon size={20} />
@@ -227,20 +253,20 @@ export function SharePanel() {
               <div className={`flex flex-col items-center gap-2`}>
                 {share?.thumbnailUrl != null && share?.thumbnailUrl !== ''
                   ? <img src={share?.thumbnailUrl} alt={share?.sharedPlaylistName} className={`w-40 h-40 object-cover`} />
-                  : <img src={`/src/assets/placeholder.jpg`} alt={`placeholder`} className={`w-40 h-40 object-cover`} />}
+                  : <img src={placeholder} alt={`placeholder`} className={`w-40 h-40 object-cover`} />}
                 <span className={`w scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>{share?.sharedPlaylistName}</span>
-                <CardDescription>{share?.ownerMovesongEmail} {t('share.sharedWithYou')}</CardDescription>
+                <CardDescription>{share?.movesongEmail} {t('share.sharedWithYou')}</CardDescription>
                 <span className={`w scroll-m-20 text-s font-extrabold tracking-tight lg:text-s`}>{t('share.openOn')}</span>
                 <Button variant={`ghost`} aria-label="import" className={`w-12 h-12 p-0`} onClick={handleOpenOnClick}>
                   {share?.sharePlatformType === 'YOUTUBE' ?
-                    <img className={`w-12 h-12 object-cover`} src={`/src/assets/youtube-music/youtube-music-icon.webp`} alt={`youtube-music`} /> :
-                    <img className={`w-12 h-12 object-cover`} src={`/src/assets/spotify/spotify-icon.webp`} alt={`spotify`} />}
+                    <img className={`w-12 h-12 object-cover`} src={youtubeMusicIcon} alt={`youtube-music`} /> :
+                    <img className={`w-12 h-12 object-cover`} src={spotifyIcon} alt={`spotify`} />}
                 </Button>
               </div>
               <div className={`flex flex-col gap-4`}>
                 {playlistItems.map((item) => (
                   <div key={uuidv4()} className={`flex flex-row justify-content items-center gap-2`}>
-                    <img src={item.thumbnailUrl || `/src/assets/placeholder.jpg`} alt={`thumbnail`} className={`w-10 h-10 object-cover`} />
+                    <img src={item.thumbnailUrl || placeholder} alt={`thumbnail`} className={`w-10 h-10 object-cover`} />
                     <div className="flex flex-col">
                       <h4 className="text-sm font-semibold">{item.title}</h4>
                       <span className={`text-sm text-muted-foreground`}>{item.channelTitle}</span>
@@ -250,7 +276,7 @@ export function SharePanel() {
               </div>
             </CardContent>
             <CardFooter className={`flex justify-center items-center`}>
-              <Button className={`primaryButton`}>{t('share.importIntoMyLibraryButtonText')}</Button>
+              <Button className={`primaryButton`} onClick={handleImportClick}>{t('share.importIntoMyLibraryButtonText')}</Button>
             </CardFooter>
           </Card>
         </div>

@@ -1,6 +1,6 @@
 import { TabsContent } from '@/shared/components/ui/tabs.tsx';
 import { Card, CardContent, CardFooter, CardHeader } from '@/shared/components/ui/card.tsx';
-import { SharesTable } from '@/modules/profile/profile-tabs/shares-table.tsx';
+import { SharesTable } from '@/modules/profile/profile-tabs/shares/shares-table.tsx';
 import { useTranslation } from 'react-i18next';
 
 export function SharesTab() {

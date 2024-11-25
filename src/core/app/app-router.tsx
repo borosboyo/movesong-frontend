@@ -30,6 +30,7 @@ import { PrivacyPolicyPanel } from '@/modules/privacypolicy/privacy-policy-panel
 import { TransformProvider } from '@/core/hooks/useTransform.tsx';
 import { CustomerIdProvider } from '@/modules/premium/customer-context.tsx';
 
+// DEPRECATED
 const RouterBuilder = () => {
 
   const errorRoute: RouteObject[] = [
@@ -68,7 +69,7 @@ const RouterBuilder = () => {
       path: '/movesong-frontend/profile',
       element:
         <PrivateRoute>
-          <ProfilePanel />
+            <ProfilePanel />
         </PrivateRoute>,
     },
     {
@@ -95,9 +96,9 @@ const RouterBuilder = () => {
       path: '/movesong-frontend/transform',
       element:
         <PrivateRoute>
-          <TransformProvider>
-            <TransformPanel />
-          </TransformProvider>
+            <TransformProvider>
+              <TransformPanel />
+            </TransformProvider>
         </PrivateRoute>,
     },
     {
@@ -122,7 +123,7 @@ const RouterBuilder = () => {
       element:
         <PrivateRoute>
           <CustomerIdProvider>
-            <PremiumSuccessPanel />
+              <PremiumSuccessPanel />
           </CustomerIdProvider>
         </PrivateRoute>,
     },
@@ -137,7 +138,10 @@ const RouterBuilder = () => {
     },
     {
       path: '/movesong-frontend/share/:shareId',
-      element: <SharePanel />,
+      element:
+        <TransformProvider>
+          <SharePanel />
+        </TransformProvider>,
     },
   ];
 

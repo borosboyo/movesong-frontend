@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }: Props) => {
   const [token, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<UserDetails | null>(null);
   const [isReady, setIsReady] = useState(false);
-  const handleErrors = useHandleError();
+  const handleError = useHandleError();
   const userApi = UserApiFactory(axiosConfig);
   const { toast } = useToast();
   const { t } = useTranslation();
@@ -69,9 +69,9 @@ export const AuthProvider = ({ children }: Props) => {
         });
       }
     } catch (error) {
-      handleErrors(error);
+      handleError(error);
     }
-  }, [handleErrors, toast, userApi]);
+  }, [handleError, toast, userApi]);
 
   const login = useCallback(async (
     usernameOrEmail: string, // Mark unused parameter with an underscore
@@ -113,9 +113,9 @@ export const AuthProvider = ({ children }: Props) => {
         });
       }
     } catch (error) {
-      handleErrors(error);
+      handleError(error);
     }
-  }, [handleErrors, toast, userApi]);
+  }, [handleError, toast, userApi]);
 
   const isLoggedIn = useCallback(() => !!user, [user]);
 

@@ -33,15 +33,15 @@ const components: { title: string; href: string; description: string }[] = [
   },
 ];
 
-export function MenuItems(props: Readonly<{ type: string }>) {
+export function HorizontalMenuItems() {
   const { t } = useTranslation();
   const { isLoggedIn, user } = useAuth();
 
   return (
     <NavigationMenu>
       <NavigationMenuList>
-        <div className={props.type}>
-          <NavigationMenuItem className={` mr-5`}>
+        <div className={`flex gap-2 items-left ml-4`}>
+          <NavigationMenuItem className={`mr-5`}>
             <NavigationMenuTrigger className={`rounded-xl`}>{t('navbar.actions')}</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className={`grid gap-3 p-4 md:w-[400px] lg:w-[500px]`}>
@@ -49,7 +49,7 @@ export function MenuItems(props: Readonly<{ type: string }>) {
                   <NavigationMenuLink
                     className={`flex h-full w-full select-none flex-col justify-end rounded-md from-muted/50 to-muted p-6 no-underline outline-none `}
                     href="/movesong-frontend/transform">
-                    <div className={`mb-2 mt-4 text-lg font-medium`}>
+                    <div className={`mb-2 text-lg font-medium`}>
                       Transfer songs
                     </div>
                     <p className={`text-sm leading-tight text-muted-foreground`}>
@@ -60,10 +60,10 @@ export function MenuItems(props: Readonly<{ type: string }>) {
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
-          <NavigationMenuItem className={` mr-5`}>
+          <NavigationMenuItem className={`mr-5`}>
             <NavigationMenuTrigger className={` rounded-xl`}>{t('navbar.plans')}</NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className={`grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] `}>
+              <ul className={`grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-1 lg:w-[400px]`}>
                 {components.map((component) => (
                   <ListItem
                     key={component.title}
@@ -76,7 +76,7 @@ export function MenuItems(props: Readonly<{ type: string }>) {
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
-          <NavigationMenuItem className={` mr-5 rounded-xl`}>
+          <NavigationMenuItem className={`mr-5 rounded-xl`}>
             <NavigationMenuLink href={'/movesong-frontend/faq'} className={`${navigationMenuTriggerStyle()} select-none rounded-xl`}>
               <p>{t('navbar.help')}</p>
             </NavigationMenuLink>
@@ -94,6 +94,75 @@ export function MenuItems(props: Readonly<{ type: string }>) {
           </NavigationMenuItem>
           <ThemeToggle />
           <I18nToggle />
+        </div>
+      </NavigationMenuList>
+    </NavigationMenu>
+  );
+}
+
+export function VerticalMenuItems() {
+  const { t } = useTranslation();
+  const { isLoggedIn, user } = useAuth();
+
+  return (
+    <NavigationMenu>
+      <NavigationMenuList>
+        <div className={`flex flex-col gap-2 items-left ml-4`}>
+          <NavigationMenuItem className={`mr-5`}>
+            <NavigationMenuTrigger className={`rounded-xl`}>{t('navbar.actions')}</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className={`grid w-[400px] gap-3 p-4 md:w-[400px] lg:w-[500px]`}>
+                <li className={`row-span-1`}>
+                  <NavigationMenuLink
+                    className={`flex h-full w-full select-none flex-col justify-end rounded-md from-muted/50 to-muted p-6 no-underline outline-none `}
+                    href="/movesong-frontend/transform">
+                    <div className={`mb-2 text-lg font-medium`}>
+                      Transfer songs
+                    </div>
+                    <p className={`text-sm leading-tight text-muted-foreground`}>
+                      Transfer your playlists between music streaming services.
+                    </p>
+                  </NavigationMenuLink>
+                </li>
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+          <NavigationMenuItem className={`mr-5`}>
+            <NavigationMenuTrigger className={` rounded-xl`}>{t('navbar.plans')}</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className={`grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-1 lg:w-[400px]`}>
+                {components.map((component) => (
+                  <ListItem
+                    key={component.title}
+                    title={component.title}
+                    href={component.href}
+                  >
+                    {component.description}
+                  </ListItem>
+                ))}
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+          <NavigationMenuItem className={`mr-5 rounded-xl`}>
+            <NavigationMenuLink href={'/movesong-frontend/faq'} className={`${navigationMenuTriggerStyle()} select-none rounded-xl`}>
+              <p>{t('navbar.help')}</p>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+          <NavigationMenuItem  className={`relative inline-flex group mr-5 rounded-xl`}>
+            {isLoggedIn()
+              ?
+              <NavigationMenuLink href={'/movesong-frontend/profile'} className={`${navigationMenuLoginTriggerStyle()} select-none rounded-xl`}>
+                {user?.username}
+              </NavigationMenuLink>
+              :
+              <NavigationMenuLink href={'/movesong-frontend/login'} className={`${navigationMenuLoginTriggerStyle()} select-none rounded-xl`}>
+                <p>{t('navbar.login')}</p>
+              </NavigationMenuLink>}
+          </NavigationMenuItem>
+          <div className={`flex flex-row`}>
+            <ThemeToggle />
+            <I18nToggle />
+          </div>
         </div>
       </NavigationMenuList>
     </NavigationMenu>

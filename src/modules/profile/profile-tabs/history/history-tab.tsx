@@ -1,6 +1,6 @@
 import { TabsContent } from '@/shared/components/ui/tabs.tsx';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader } from '@/shared/components/ui/card.tsx';
-import { HistoryTabPlaylist } from '@/modules/profile/profile-tabs/history-tab-playlist.tsx';
+import { HistoryTabPlaylist } from '@/modules/profile/profile-tabs/history/history-tab-playlist.tsx';
 import { ScrollArea } from '@/shared/components/ui/scroll-area.tsx';
 import { useEffect, useState } from 'react';
 import profileService from '@/modules/profile/profile-service.ts';
