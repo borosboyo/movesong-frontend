@@ -16,24 +16,21 @@ import { useToast } from '@/shared/components/ui/use-toast.ts';
 import { useTranslation } from 'react-i18next';
 
 const ForgotPasswordSchema = z.object({
-  email: z
-    .string()
-    .min(2, { message: "Email is invalid." })
-    .email()
+  email: z.string().min(2, { message: 'Email is invalid.' }).email(),
 });
 
 export function ForgotPasswordEmailPanel() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const progress = useLoading(loading);
-  const handleErrors = useHandleError();
+  const handleError = useHandleError();
   const { toast } = useToast();
   const { t } = useTranslation();
 
   const forgotPasswordForm = useForm<z.infer<typeof ForgotPasswordSchema>>({
     resolver: zodResolver(ForgotPasswordSchema),
     defaultValues: {
-      email: "",
+      email: '',
     },
   });
 
@@ -54,7 +51,7 @@ export function ForgotPasswordEmailPanel() {
       }
     } catch (error) {
       setLoading(false);
-      handleErrors(error);
+      handleError(error);
     } finally {
       setLoading(false);
     }

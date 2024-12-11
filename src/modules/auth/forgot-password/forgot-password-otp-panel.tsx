@@ -17,10 +17,8 @@ import EmailIcon from '@/shared/icons/email-icon.tsx';
 import { useTranslation } from 'react-i18next';
 
 const ForgotPasswordSchema = z.object({
-  pin: z
-    .string()
-    .min(6, { message: "Your one-time password must be 6 characters.", })
-})
+  pin: z.string().min(6, { message: 'Your one-time password must be 6 characters.' }),
+});
 
 export function ForgotPasswordOtpPanel() {
   const navigate = useNavigate();
@@ -28,24 +26,24 @@ export function ForgotPasswordOtpPanel() {
   const [loading, setLoading] = useState(false);
   const progress = useLoading(loading);
   const { toast } = useToast();
-  const handleErrors = useHandleError();
+  const handleError = useHandleError();
   const email = location?.state?.email;
   const { t } = useTranslation();
 
   const forgotPasswordForm = useForm<z.infer<typeof ForgotPasswordSchema>>({
     resolver: zodResolver(ForgotPasswordSchema),
     defaultValues: {
-      pin: "",
+      pin: '',
     },
-  })
+  });
 
   const onSubmit = async (values: z.infer<typeof ForgotPasswordSchema>) => {
     setLoading(true);
     try {
       const resp = await forgotPasswordService.checkForgotPasswordToken(email, values.pin);
-      if(resp.success) {
+      if (resp.success) {
         setLoading(false);
-        navigate('/movesong-frontend/forgot-password/change' , { state: { email } });
+        navigate('/movesong-frontend/forgot-password/change', { state: { email } });
       } else {
         setLoading(false);
         toast({
@@ -56,7 +54,7 @@ export function ForgotPasswordOtpPanel() {
       }
     } catch (error) {
       setLoading(false);
-      handleErrors(error);
+      handleError(error);
     } finally {
       setLoading(false);
     }
@@ -64,8 +62,8 @@ export function ForgotPasswordOtpPanel() {
 
   const handleResendEmail = async () => {
     try {
-      const resp = await forgotPasswordService.resendForgotPassword(email);
-      if(resp.success) {
+      const resp = await forgotPasswordService.forgotPassword(email);
+      if (resp.success) {
         toast({
           title: t('auth.forgotPassword.otpPanel.resendEmailSuccessToast.title'),
           description: t('auth.forgotPassword.otpPanel.resendEmailSuccessToast.description'),
@@ -78,7 +76,7 @@ export function ForgotPasswordOtpPanel() {
         });
       }
     } catch (error) {
-      handleErrors(error);
+      handleError(error);
     }
   };
 
@@ -90,7 +88,7 @@ export function ForgotPasswordOtpPanel() {
             {t('auth.forgotPassword.otpPanel.header')}
           </CardTitle>
           <CardDescription>
-            {t('auth.forgotPassword.otpPanel.description')} { email }
+            {t('auth.forgotPassword.otpPanel.text')} {email}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -138,7 +136,7 @@ export function ForgotPasswordOtpPanel() {
             <CardDescription>
               {t('auth.forgotPassword.otpPanel.resendEmailText')}
               <Button onClick={handleResendEmail} className={`p-0 ml-1`} variant={`link`}>
-                <p className={`sm:text-s`}>{t('auth.forgotPassword.otpPanel.resendButtonText')}</p>
+                <p className={`sm:text-s`}>{t('auth.forgotPassword.otpPanel.resendEmailButtonText')}</p>
               </Button>
             </CardDescription>
           </div>

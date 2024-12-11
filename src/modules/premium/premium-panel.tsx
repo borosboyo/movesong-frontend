@@ -20,18 +20,17 @@ export default function PremiumPanel() {
 
   useEffect(() => {
     if (user?.email) {
-      premiumService.findSubscriptionByUserEmail(user.email)
-        .then((resp) => {
-          setSubscription(resp);
-        })
+      premiumService.findSubscriptionByUserEmail(user.email).then((resp) => {
+        setSubscription(resp);
+      });
     }
   }, [user]);
 
   return (
     <PanelContainer>
-      <div className={`flex flex-col gap-4`}>
+      <div className={`flex flex-col gap-4 items-center`}>
         {subscription ? <AlreadyPremiumCard /> : <PremiumCard />}
-        <Card className={`w-[500px]`}>
+        <Card className={`w-4/5 lg:w-[500px]`}>
           <CardHeader>
             <CardTitle className={`flex scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>
               {t('premium.freePackage.header')}
@@ -39,13 +38,16 @@ export default function PremiumPanel() {
           </CardHeader>
           <CardContent className={`flex-col grid gap-4`}>
             <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}>
-              <DiamondIcon />{t('premium.freePackage.benefit1')}
+              <DiamondIcon />
+              {t('premium.freePackage.benefit1')}
             </CardTitle>
             <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}>
-              <DiamondIcon />{t('premium.freePackage.benefit2')}
+              <DiamondIcon />
+              {t('premium.freePackage.benefit2')}
             </CardTitle>
             <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}>
-              <DiamondIcon />{t('premium.freePackage.benefit3')}
+              <DiamondIcon />
+              {t('premium.freePackage.benefit3')}
             </CardTitle>
           </CardContent>
         </Card>
@@ -62,7 +64,7 @@ function PremiumCard() {
   const monthlyProgress = useLoading(monthlyLoading);
   const yearlyProgress = useLoading(yearlyLoading);
   const { isLoggedIn, user } = useAuth();
-  const handleErrors = useHandleError();
+  const handleError = useHandleError();
   const { toast } = useToast();
   const { setCustomerId } = useCustomerId();
 
@@ -77,7 +79,8 @@ function PremiumCard() {
   const handleMonthlySubscription = () => {
     setMonthlyLoading(true);
     if (user?.email && user.username) {
-      premiumService.subscription(user.email, user.username, 'month', 'prod_QuqcwXaww68NTo')
+      premiumService
+        .subscription(user.email, user.username, 'month', 'prod_QuqcwXaww68NTo')
         .then((resp) => {
           if (resp.url && resp.customerId) {
             setCustomerId(resp.customerId);
@@ -94,7 +97,7 @@ function PremiumCard() {
         })
         .catch((error) => {
           setMonthlyLoading(false);
-          handleErrors(error);
+          handleError(error);
         });
     }
   };
@@ -102,7 +105,8 @@ function PremiumCard() {
   const handleYearlySubscription = () => {
     setYearlyLoading(true);
     if (user?.email && user.username) {
-      premiumService.subscription(user.email, user.username, 'year', 'prod_QuqcNVtCp060Lm')
+      premiumService
+        .subscription(user.email, user.username, 'year', 'prod_QuqcNVtCp060Lm')
         .then((resp) => {
           if (resp.url && resp.customerId) {
             setCustomerId(resp.customerId);
@@ -119,13 +123,13 @@ function PremiumCard() {
         })
         .catch((error) => {
           setYearlyLoading(false);
-          handleErrors(error);
+          handleError(error);
         });
     }
-  }
+  };
 
   return (
-    <Card className={`w-[500px]`}>
+    <Card className={`w-4/5 lg:w-[500px]`}>
       <CardHeader>
         <CardTitle className={`flex scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>
           {t('premium.premiumPackage.header')}
@@ -133,13 +137,16 @@ function PremiumCard() {
       </CardHeader>
       <CardContent className={`flex-col grid gap-4`}>
         <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}>
-          <DiamondIcon />{t('premium.premiumPackage.benefit1')}
+          <DiamondIcon />
+          {t('premium.premiumPackage.benefit1')}
         </CardTitle>
         <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}>
-          <DiamondIcon />{t('premium.premiumPackage.benefit2')}
+          <DiamondIcon />
+          {t('premium.premiumPackage.benefit2')}
         </CardTitle>
         <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}>
-          <DiamondIcon />{t('premium.premiumPackage.benefit3')}
+          <DiamondIcon />
+          {t('premium.premiumPackage.benefit3')}
         </CardTitle>
       </CardContent>
       <CardFooter className={`flex-col grid gap-2 items-start`}>
@@ -174,13 +181,16 @@ function AlreadyPremiumCard() {
       </CardHeader>
       <CardContent className={`flex-col grid gap-4`}>
         <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}>
-          <DiamondIcon />{t('premium.premiumPackage.benefit1')}
+          <DiamondIcon />
+          {t('premium.premiumPackage.benefit1')}
         </CardTitle>
         <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}>
-          <DiamondIcon />{t('premium.premiumPackage.benefit2')}
+          <DiamondIcon />
+          {t('premium.premiumPackage.benefit2')}
         </CardTitle>
         <CardTitle className={`flex flex-row gap-2 scroll-m-20 text-m font-bold tracking-tight lg:text-m`}>
-          <DiamondIcon />{t('premium.premiumPackage.benefit3')}
+          <DiamondIcon />
+          {t('premium.premiumPackage.benefit3')}
         </CardTitle>
       </CardContent>
     </Card>

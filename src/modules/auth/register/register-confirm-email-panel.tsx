@@ -18,9 +18,9 @@ import { useHandleError } from '@/core/hooks/useHandleError.ts';
 
 const ConfirmSchema = z.object({
   pin: z.string().min(6, {
-    message: "Your one-time password must be 6 characters.",
+    message: 'Your one-time password must be 6 characters.',
   }),
-})
+});
 
 export function RegisterConfirmEmailPanel() {
   const navigate = useNavigate();
@@ -35,33 +35,41 @@ export function RegisterConfirmEmailPanel() {
   const confirmForm = useForm<z.infer<typeof ConfirmSchema>>({
     resolver: zodResolver(ConfirmSchema),
     defaultValues: {
-      pin: "",
+      pin: '',
     },
-  })
+  });
 
   async function onSubmit(values: z.infer<typeof ConfirmSchema>) {
     setLoading(true);
-    registerService.enable(values.pin).then(() => {
-      toast({
-        title: t('auth.register.confirmEmailPanel.successToast.title'),
-        description: t('auth.register.confirmEmailPanel.successToast.description'),
-        variant: 'success',
-      });
-      setLoading(false);
-      navigate('/movesong-frontend/');
-    }).catch((error) => handleError(error)).finally(() => setLoading(false));
+    registerService
+      .enable(values.pin)
+      .then(() => {
+        toast({
+          title: t('auth.register.confirmEmailPanel.successToast.title'),
+          description: t('auth.register.confirmEmailPanel.successToast.description'),
+          variant: 'success',
+        });
+        setLoading(false);
+        navigate('/movesong-frontend/');
+      })
+      .catch((error) => handleError(error))
+      .finally(() => setLoading(false));
   }
 
   const handleResendEmail = () => {
     setLoading(true);
-    registerService.resendEnable(userEmail).then(() => {
-      toast({
-        title: t('auth.register.confirmEmailPanel.resendEmailSuccessToast.title'),
-        description: t('auth.register.confirmEmailPanel.resendEmailSuccessToast.description'),
-        variant: 'success',
-      });
-    }).catch((error) => handleError(error)).finally(() => setLoading(false));
-  }
+    registerService
+      .resendEnable(userEmail)
+      .then(() => {
+        toast({
+          title: t('auth.register.confirmEmailPanel.resendEmailSuccessToast.title'),
+          description: t('auth.register.confirmEmailPanel.resendEmailSuccessToast.description'),
+          variant: 'success',
+        });
+      })
+      .catch((error) => handleError(error))
+      .finally(() => setLoading(false));
+  };
 
   return (
     <PanelContainer>
@@ -70,9 +78,7 @@ export function RegisterConfirmEmailPanel() {
           <CardTitle className={`flex justify-center scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>
             {t('auth.register.confirmEmailPanel.header')}
           </CardTitle>
-          <CardDescription>
-            {t('auth.register.confirmEmailPanel.text')} test@test.com.
-          </CardDescription>
+          <CardDescription>{t('auth.register.confirmEmailPanel.text')} borosgergo00@gmail.com.</CardDescription>
         </CardHeader>
         <CardContent>
           <div className={`flex justify-center`}>
@@ -126,5 +132,5 @@ export function RegisterConfirmEmailPanel() {
         </CardFooter>
       </Card>
     </PanelContainer>
-  )
+  );
 }

@@ -69,14 +69,14 @@ export function ContactPanel() {
 
   return (
     <PanelContainer>
-      <Card className={`w-2/5`}>
+      <Card className={`w-4/5 md:w-3/5`}>
         <CardHeader>
-          <CardTitle className={`flex scroll-m-20 text-5xl font-extrabold tracking-tight lg:text-5xl`}>
+          <CardTitle
+            className={`flex scroll-m-20 text-xl lg:text-5xl font-extrabold tracking-tight text-center lg:text-left`}
+          >
             {t('contact.header')}
           </CardTitle>
-          <CardDescription className={`text-xl`}>
-            {t('contact.text')}
-          </CardDescription>
+          <CardDescription className={`text-md lg:text-xl`}>{t('contact.text')}</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...contactForm}>
@@ -88,10 +88,7 @@ export function ContactPanel() {
                   <FormItem>
                     <FormLabel>{t('contact.subjectPlaceholder')}</FormLabel>
                     <FormControl>
-                      <Select
-                        value={field.value}
-                        onValueChange={field.onChange}
-                      >
+                      <Select value={field.value} onValueChange={field.onChange}>
                         <SelectTrigger className="w-full">
                           <SelectValue placeholder={t('contact.subjectPlaceholder')} />
                         </SelectTrigger>
@@ -147,7 +144,7 @@ export function ContactPanel() {
               />
               <LoadingButton
                 disabled={isSendDisabled}
-                className={`primaryButton rounded-xl w-1/3 mt-2`}
+                className={`primaryButton rounded-xl w-full lg:w-1/3 mt-2`}
                 loading={loading}
                 progress={progress}
                 onClick={contactForm.handleSubmit(onSubmit)}

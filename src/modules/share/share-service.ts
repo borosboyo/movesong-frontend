@@ -4,7 +4,7 @@ import { ShareApiFactory } from '@/swagger/share/apis/share-api.ts';
 import { ShareDto } from '@/swagger/share/models/share-dto';
 import { UpdateShareResp } from '@/swagger/share/models/update-share-resp';
 import { GetShareByIdResp } from '@/swagger/share/models/get-share-by-id-resp';
-import { GetItemsInYoutubePlaylistResp } from '@/swagger/transform';
+import { GetItemsInYoutubePlaylistResp, GetUserSpotifyPlaylistByPlaylistIdResp, GetUserYoutubePlaylistByPlaylistIdResp } from '@/swagger/transform';
 
 const ShareService = {
 
@@ -37,6 +37,22 @@ const ShareService = {
     const response = await this.transformApi.getItemsInSpotifyPlaylist({
       playlistId,
       movesongEmail,
+    }, baseOptions);
+    return response.data;
+  },
+
+  getUserYoutubePlaylistByPlaylistId: async function(movesongEmail: string, playlistId: string): Promise<GetUserYoutubePlaylistByPlaylistIdResp> {
+    const response = await this.transformApi.getUserYoutubePlaylistByPlaylistId({
+      movesongEmail,
+      playlistId,
+    }, baseOptions);
+    return response.data;
+  },
+
+  getUserSpotifyPlaylistByPlaylistId: async function(movesongEmail: string, playlistId: string): Promise<GetUserSpotifyPlaylistByPlaylistIdResp> {
+    const response = await this.transformApi.getUserSpotifyPlaylistByPlaylistId({
+      movesongEmail,
+      playlistId,
     }, baseOptions);
     return response.data;
   },
