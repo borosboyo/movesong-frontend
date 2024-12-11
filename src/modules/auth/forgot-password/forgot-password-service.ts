@@ -27,9 +27,9 @@ const ForgotPasswordService = {
     return response.data;
   },
 
-  saveForgotPassword: async function(token: string, newPassword: string): Promise<SaveForgotPasswordResp> {
+  saveForgotPassword: async function(email: string, newPassword: string): Promise<SaveForgotPasswordResp> {
     const response = await this.userApi.saveForgotPassword({
-      token,
+      email,
       newPassword,
     }, baseOptions);
     return response.data;

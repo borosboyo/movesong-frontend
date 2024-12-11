@@ -15,10 +15,13 @@ import { useHandleError } from '@/core/hooks/useHandleError.ts';
 import { LoadingSpinner } from '@/shared/components/util/spinner.tsx';
 import { useTranslation } from 'react-i18next';
 import { iconMap } from '@/modules/transform/transform-panel.tsx';
+import { ShareDto } from '@/swagger/share/models/share-dto';
+import ProfileService from '@/modules/profile/profile-service.ts';
+import { useToast } from '@/shared/components/ui/use-toast.ts';
 
 export function FinishPanel() {
   const { t } = useTranslation();
-  const { source, destination, selectedPlaylist, exportedResource } = useTransform();
+  const { source, destination, exportedResource, selectedPlaylist } = useTransform();
   const location = useLocation();
   const { user } = useAuth();
   const handleError = useHandleError();
@@ -26,6 +29,7 @@ export function FinishPanel() {
   const [loading, setLoading] = useState(false);
   const [isDestinationPlatform, setIsDestinationPlatform] = useState(false);
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   useEffect(() => {
     if (exportedResource == null) {
@@ -33,18 +37,26 @@ export function FinishPanel() {
     }
     if (user?.email && location.state?.destinationPlaylistId && exportedResource == null) {
       if (destination === 'SPOTIFY') {
-        transformService.getUserSpotifyPlaylistByPlaylistId(user?.email, location.state?.destinationPlaylistId).then((resp) => {
-          if (resp.playlist) {
-            setTransformedPlaylist(resp.playlist);
-          }
-        }).catch((error) => handleError(error)).finally(() => setLoading(false));
+        transformService
+          .getUserSpotifyPlaylistByPlaylistId(user?.email, location.state?.destinationPlaylistId)
+          .then((resp) => {
+            if (resp.playlist) {
+              setTransformedPlaylist(resp.playlist);
+            }
+          })
+          .catch((error) => handleError(error))
+          .finally(() => setLoading(false));
       }
       if (destination === 'YOUTUBE') {
-        transformService.getUserYoutubePlaylistByPlaylistId(user?.email, location.state?.destinationPlaylistId).then((resp) => {
-          if (resp.playlist) {
-            setTransformedPlaylist(resp.playlist);
-          }
-        }).catch((error) => handleError(error)).finally(() => setLoading(false));
+        transformService
+          .getUserYoutubePlaylistByPlaylistId(user?.email, location.state?.destinationPlaylistId)
+          .then((resp) => {
+            if (resp.playlist) {
+              setTransformedPlaylist(resp.playlist);
+            }
+          })
+          .catch((error) => handleError(error))
+          .finally(() => setLoading(false));
       }
     }
   }, [user?.email, destination, location.state?.destinationPlaylistId]);
@@ -52,7 +64,6 @@ export function FinishPanel() {
   const handleDownloadResourceClick = () => {
     if (exportedResource != null) {
       if (destination === 'TXT') {
-        console.log(exportedResource);
         const txtBlob = transformService.stringArrayToTXTBlob(exportedResource);
         downloadTransformedResource(txtBlob, 'transformed_playlist.txt');
       } else if (destination === 'CSV') {
@@ -74,7 +85,35 @@ export function FinishPanel() {
 
   const handleConvertAgainClick = () => {
     navigate('/movesong-frontend/transform');
-  }
+  };
+
+  const handleShareMySongsClick = () => {
+    const req: ShareDto = {
+      id: 0,
+      playlistId: location.state?.destinationPlaylistId,
+      sharedPlaylistName: transformedPlaylist?.title,
+      movesongEmail: user?.email,
+      views: 0,
+      sharePlatformType: destination,
+      visible: true,
+      selectedBackgroundId: 0,
+      thumbnailUrl: transformedPlaylist?.thumbnailUrl,
+    };
+    ProfileService.createShare(req)
+      .then((resp) => {
+        if (resp.share != null) {
+          toast({
+            title: t('profile.historyTab.shareSuccessToast.title'),
+            description: t('profile.historyTab.shareSuccessToast.description'),
+            variant: 'success',
+          });
+          navigate('/movesong-frontend/share/' + resp.share.id);
+        }
+      })
+      .catch((error) => {
+        handleError(error);
+      });
+  };
 
   return (
     <PanelContainer>
@@ -82,7 +121,9 @@ export function FinishPanel() {
         <CardHeader>
           <div className={`flex flex-col space-y-1.5 items-center`}>
             <CheckmarkIcon size={40} />
-            <CardTitle className={`flex justify-center scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>{t('transform.finish.header')}</CardTitle>
+            <CardTitle className={`flex justify-center scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>
+              {t('transform.finish.header')}
+            </CardTitle>
           </div>
         </CardHeader>
         <CardContent>
@@ -92,22 +133,43 @@ export function FinishPanel() {
               <ArrowRightIcon />
               {iconMap[destination]}
             </div>
+            <div className={`flex flex-row`}>
+              {exportedResource != null ? (
+                <span className={`text-sm text-muted-foreground mr-2`}>
+                  {selectedPlaylist?.itemCount} {t('transform.finish.copied')}
+                </span>
+              ) : (
+                <span className={`text-sm text-muted-foreground mr-2`}>
+                  {transformedPlaylist?.itemCount} {t('transform.finish.copied')}
+                </span>
+              )}
+              <CheckmarkIcon size={20} />
+            </div>
           </div>
         </CardContent>
         <CardFooter className={`flex-col grid gap-2 items-start`}>
           {loading && <LoadingSpinner />}
           <div className={`flex flex-row gap-2 mb-5`}>
-            {isDestinationPlatform
-              ? <Button className={`primaryButton w-full`}>{t('transform.finish.shareMySongsButtonText')}</Button>
-              : <Button onClick={handleDownloadResourceClick} className={`primaryButton w-full`}>{t('transform.finish.downloadButtonText')}</Button>}
-            <Button className={`primaryButton w-full`} onClick={handleConvertAgainClick}>{t('transform.finish.convertAgainButtonText')}</Button>
+            {isDestinationPlatform ? (
+              <Button onClick={handleShareMySongsClick} className={`primaryButton w-full`}>
+                {t('transform.finish.shareMySongsButtonText')}
+              </Button>
+            ) : (
+              <Button onClick={handleDownloadResourceClick} className={`primaryButton w-full`}>
+                {t('transform.finish.downloadButtonText')}
+              </Button>
+            )}
+            <Button className={`primaryButton w-full`} onClick={handleConvertAgainClick}>
+              {t('transform.finish.convertAgainButtonText')}
+            </Button>
           </div>
           <ScrollArea className={`h-[250px]`}>
             <div className={`flex flex-row items-center`}>
-              {isDestinationPlatform ? <CollapsiblePlaylist playlist={transformedPlaylist} /> : <CollapsiblePlaylist playlist={selectedPlaylist} />}
-              {exportedResource != null ? <span className={`text-sm text-muted-foreground mr-2`}>{selectedPlaylist?.itemCount} {t('transform.finish.copied')}</span> :
-                <span className={`text-sm text-muted-foreground mr-2`}>{transformedPlaylist?.itemCount} {t('transform.finish.copied')}</span>}
-              <CheckmarkIcon size={20} />
+              {isDestinationPlatform ? (
+                <CollapsiblePlaylist platform={destination} playlist={transformedPlaylist} />
+              ) : (
+                <CollapsiblePlaylist platform={source} playlist={selectedPlaylist} />
+              )}
             </div>
           </ScrollArea>
         </CardFooter>

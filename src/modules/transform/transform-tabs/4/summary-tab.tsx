@@ -27,42 +27,74 @@ export function SummaryTab() {
     if (user?.email) {
       if (source === 'YOUTUBE') {
         if (destination === 'TXT') {
-          transformService.exportYoutubePlaylistToTXT(user?.email, selectedPlaylistId).then((resp) => {
-            setExportedResource(resp);
-            navigate('/movesong-frontend/transform/finish');
-          }).catch((error) => handleError(error)).finally(() => setLoading(false));
+          transformService
+            .exportYoutubePlaylistToTXT(user?.email, selectedPlaylistId)
+            .then((resp) => {
+              setExportedResource(resp);
+              navigate('/movesong-frontend/transform/finish');
+            })
+            .catch((error) => handleError(error))
+            .finally(() => setLoading(false));
         }
         if (destination === 'CSV') {
-          transformService.exportYoutubePlaylistToCSV(user?.email, selectedPlaylistId).then((resp) => {
-            setExportedResource(resp);
-            navigate('/movesong-frontend/transform/finish');
-          }).catch((error) => handleError(error)).finally(() => setLoading(false));
+          transformService
+            .exportYoutubePlaylistToCSV(user?.email, selectedPlaylistId)
+            .then((resp) => {
+              setExportedResource(resp);
+              navigate('/movesong-frontend/transform/finish');
+            })
+            .catch((error) => handleError(error))
+            .finally(() => setLoading(false));
         }
         if (destination === 'SPOTIFY') {
-          transformService.convertToSpotify(user?.email, selectedPlaylistId).then((resp) => {
-            setExportedResource(undefined);
-            navigate('/movesong-frontend/transform/finish', { state: { destinationPlaylistId: resp.destinationPlaylistId } });
-          }).catch((error) => handleError(error)).finally(() => setLoading(false));
+          transformService
+            .convertToSpotify(user?.email, selectedPlaylistId)
+            .then((resp) => {
+              setExportedResource(undefined);
+              navigate('/movesong-frontend/transform/finish', {
+                state: { destinationPlaylistId: resp.destinationPlaylistId },
+              });
+            })
+            .catch((error) => handleError(error))
+            .finally(() => setLoading(false));
         }
       }
       if (source === 'SPOTIFY') {
         if (destination === 'TXT') {
-          transformService.exportSpotifyPlaylistToTXT(user?.email, selectedPlaylistId).then((resp) => {
-            setExportedResource(resp);
-            navigate('/movesong-frontend/transform/finish', { state: { destinationResource: transformService.stringArrayToTXTBlob(resp) } });
-          }).catch((error) => handleError(error)).finally(() => setLoading(false));
+          transformService
+            .exportSpotifyPlaylistToTXT(user?.email, selectedPlaylistId)
+            .then((resp) => {
+              setExportedResource(resp);
+              navigate('/movesong-frontend/transform/finish', {
+                state: { destinationResource: transformService.stringArrayToTXTBlob(resp) },
+              });
+            })
+            .catch((error) => handleError(error))
+            .finally(() => setLoading(false));
         }
         if (destination === 'CSV') {
-          transformService.exportSpotifyPlaylistToCSV(user?.email, selectedPlaylistId).then((resp) => {
-            setExportedResource(resp);
-            navigate('/movesong-frontend/transform/finish', { state: { destinationResource: transformService.stringArrayToCSVBlob(resp) } });
-          }).catch((error) => handleError(error)).finally(() => setLoading(false));
+          transformService
+            .exportSpotifyPlaylistToCSV(user?.email, selectedPlaylistId)
+            .then((resp) => {
+              setExportedResource(resp);
+              navigate('/movesong-frontend/transform/finish', {
+                state: { destinationResource: transformService.stringArrayToCSVBlob(resp) },
+              });
+            })
+            .catch((error) => handleError(error))
+            .finally(() => setLoading(false));
         }
         if (destination === 'YOUTUBE') {
-          transformService.convertToYoutube(user?.email, selectedPlaylistId).then((resp) => {
-            setExportedResource(undefined);
-            navigate('/movesong-frontend/transform/finish', { state: { destinationPlaylistId: resp.destinationPlaylistId } });
-          }).catch((error) => handleError(error)).finally(() => setLoading(false));
+          transformService
+            .convertToYoutube(user?.email, selectedPlaylistId)
+            .then((resp) => {
+              setExportedResource(undefined);
+              navigate('/movesong-frontend/transform/finish', {
+                state: { destinationPlaylistId: resp.destinationPlaylistId },
+              });
+            })
+            .catch((error) => handleError(error))
+            .finally(() => setLoading(false));
         }
       }
     }
@@ -72,18 +104,22 @@ export function SummaryTab() {
     <Card>
       <CardContent className="aspect-square justify-center p-6">
         <div className={`flex flex-col items-center mb-6`}>
-          <span className={`scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>{t('transform.summaryTab.header')}</span>
+          <span className={`scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl`}>
+            {t('transform.summaryTab.header')}
+          </span>
           <CardDescription>4/4 {t('transform.step')}</CardDescription>
         </div>
         <div className={`flex flex-row gap-4 items-center`}>
-          <span className={`w scroll-m-20 text-m font-extrabold tracking-tight lg:text-m`}>{t('transform.summaryTab.text')}</span>
+          <span className={`w scroll-m-20 text-m font-extrabold tracking-tight lg:text-m`}>
+            {t('transform.summaryTab.text')}
+          </span>
           {iconMap[source]}
           <ArrowRightIcon />
           {iconMap[destination]}
         </div>
         <ScrollArea className={`h-[250px]`}>
           <div className={`flex flex-col gap-2`}>
-            <CollapsiblePlaylist playlist={selectedPlaylist} />
+            <CollapsiblePlaylist platform={source} playlist={selectedPlaylist} />
           </div>
         </ScrollArea>
         <div className="flex justify-center mt-12">

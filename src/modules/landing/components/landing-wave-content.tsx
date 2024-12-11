@@ -7,7 +7,7 @@ export function LandingWaveContent() {
       <section className="wave-top">
         <TopWaveSeparator flip={true} />
       </section>
-      <div className={`wave-content`}>
+      <div className={`wave-content #002347`}>
         <LandingPopularFeatures />
       </div>
       <BottomWaveSeparator />

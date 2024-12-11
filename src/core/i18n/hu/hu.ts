@@ -13,6 +13,12 @@ export const hu = {
       plans: 'Csomagok',
       help: 'Segítség',
       login: 'Bejelentkezés',
+      transferSongsTitle: 'Zeneátvitel',
+      transferSongsDescription: 'Lejátszási listák átvitele különböző zenei platformok között.',
+      premiumTitle: 'Prémium',
+      premiumDescription: 'Élvezd a legjobb élményt a Movesong Prémium szolgáltatással.',
+      freeTitle: 'Ingyenes csomag',
+      freeDescription: 'Használd az ingyenes csomagot, hogy maximum 500 zenét vigyél át lejátszási listáid között.',
     },
 
     footer: {
@@ -31,7 +37,7 @@ export const hu = {
       termsOfUseText: 'Felhasználási feltételek',
       privacyPolicyText: 'Adatvédelmi irányelvek',
       packagesText: 'Csomagok',
-      transformText: 'Lejátszási lista átvitel',
+      transformText: 'Átvitel',
     },
 
     landing: {
@@ -43,17 +49,18 @@ export const hu = {
 
       landingIntroduction: {
         header: 'Mi az a Movesong?',
-        subtitle: 'Nullam sed ipsum in odio euismod mollis at in orci. Cras eu molestie turpis. Integer ultrices urna vitae tellus ultrices, egestas tristique nisl volutpat. Nulla facilisi. Mauris pulvinar pellentesque neque. Phasellus at pretium lectus. Fusce vel risus eu lacus laoreet facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sed ipsum in odio euismod mollis at in orci. Cras eu molestie turpis. Integer ultrices urna vitae tellus ultrices, egestas tristique nisl volutpat. Nulla facilisi. Mauris pulvinar pellentesque neque. ',
+        subtitle: '\n' +
+          'A Movesong egy sokoldalú zenei platform, amely megkönnyíti a lejátszási listák kezelését több streaming szolgáltatás között. Lehetővé teszi a felhasználók számára, hogy zökkenőmentesen áthelyezzék lejátszási listáikat egyik zenei szolgáltatásból a másikba, így sosem veszítenek el egyetlen kedvenc számot sem. Az intuitív eszközök segítségével a Movesong egyszerűsíti a lejátszási listák létrehozását, szerkesztését és megosztását, ezáltal a zenei felfedezés és a megosztás még szociálisabbá és elérhetőbbé válik. A felhasználók felfedezhetik a legkülönfélébb zenei tartalmakat, új dalokat találhatnak, és biztosak lehetnek abban, hogy zenei könyvtáruk mindig szinkronban van, függetlenül attól, melyik platformot részesítik előnyben.',
       },
 
       landingPopularFeatures: {
         header: 'A legmenőbb funkciók.',
         transferHeader: 'Átvitel',
-        transferSubtitle: 'Nullam sed ipsum in odio euismod mollis at in orci. Cras eu molestie turpis.',
+        transferSubtitle: 'A Movesong lehetővé teszi, hogy lejátszási listáidat könnyedén átalakítsd a különböző zenei platformok között.',
         syncHeader: 'Szinkronizáció',
-        syncSubtitle: 'Nullam sed ipsum in odio euismod mollis at in orci. Cras eu molestie turpis.',
+        syncSubtitle: 'Szinkronizáld zenéidet egyszerűen, hogy minden eszközön ugyanazokat a lejátszási listákat élvezhesd.',
         shareHeader: 'Megosztás',
-        shareSubtitle: 'Nullam sed ipsum in odio euismod mollis at in orci. Cras eu molestie turpis.',
+        shareSubtitle: 'Oszd meg kedvenc zenéidet és lejátszási listáidat barátaiddal egyetlen kattintással.',
       },
 
       landingPopularPlatforms: {
@@ -288,12 +295,16 @@ export const hu = {
       successPanel: {
         text: 'A prémium előfizetésed sikeres volt. Köszönjük a támogatást!',
         buttonText: 'Vigyél vissza',
+        toast: {
+          title: 'Hurrá!',
+          description: 'A prémium előfizetésed sikeres volt. Köszönjük a támogatást!',
+        }
       },
       freePackage: {
         header: 'Ingyenes csomag összefoglaló',
-        benefit1: 'Legfeljebb 500 dal átvitel',
+        benefit1: 'Legfeljebb 500 dal átvitel lejátszási listánként',
         benefit2: 'Nincs automatikus szinkronizálás',
-        benefit3: 'Exportálás TXT / CSV formátumba',
+        benefit3: 'Nincs exportálás TXT / CSV formátumba',
       },
       premiumPackage: {
         header: 'Váltás prémiumra!',
@@ -332,6 +343,7 @@ export const hu = {
         notPremium: 'Nem vagy prémium tag.',
         logOutButtonText: 'Kijelentkezés',
         deleteAccountButtonText: 'Fiók törlése',
+        cancelSubscriptionButtonText: 'Prémium lemondása',
         logOutPopover: {
           header: 'Kijelentkezés',
           text: 'Biztos, hogy ki szeretnél jelentkezni?',
@@ -341,6 +353,11 @@ export const hu = {
           header: 'Biztos vagy benne, hogy törölni szeretnéd a fiókodat?',
           text: 'Ez a művelet nem visszavonható.',
           buttonText: 'Fiók törlése',
+        },
+        cancelSubscriptionPopover: {
+          header: 'Biztos vagy benne, hogy le szeretnéd mondani a prémium előfizetésedet?',
+          text: 'A prémium előfizetésed lemondása után a prémium funkciók elvesznek.',
+          buttonText: 'Prémium lemondása',
         },
         account: 'Fiók',
         premium: 'Prémium fiók',
@@ -354,6 +371,14 @@ export const hu = {
         logoutSuccessToast: {
           title: 'Hurrá!',
           description: 'Sikeresen kijelentkeztél.',
+        },
+        deleteAccountSuccessToast: {
+          title: 'Hurrá!',
+          description: 'A fiókod sikeresen törölve.',
+        },
+        cancelSubscriptionSuccessToast: {
+          title: 'Hurrá!',
+          description: 'A prémium előfizetésed sikeresen lemondva.',
         },
         noConnections: 'Még nincs kapcsolatod.',
         newConnection: 'Új kapcsolat',
@@ -418,9 +443,55 @@ export const hu = {
           },
         }
       },
-      syncTab: {
+      syncsTab: {
         header: 'Szinkronizálások',
         newSyncButtonText: 'Új szinkronizálás',
+        syncsTable: {
+          filterPlaylists: "Szűrd a lejátszási listákat...",
+          actions: "Műveletek",
+          copyLink: "Másold a lejátszási lista linkjét",
+          share: "Megosztás",
+          openOnPlatform: "Megnyitás a platformon",
+          openMenu: "Menü megnyitása",
+          noResults: "Nincs találat.",
+          interval: "Időköz",
+          lastSyncDate: "Utolsó szinkronizálás dátuma",
+          enabled: "Engedélyezve",
+          disabled: "Letiltva",
+          playlistName: "Lejátszási lista neve",
+          date: "Dátum",
+          views: "Megtekintések",
+          selectAll: "Összes kiválasztása",
+          selectRow: "Sor kiválasztása",
+          visible: "Állapot",
+          selected: "sor kiválasztva.",
+          next: "Következő",
+          previous: "Előző",
+          columns: "Oszlopok",
+          search: "Keresés",
+          open: "Megnyitás",
+          changeStatus: "Állapot módosítása",
+          changeStatusToast: {
+            title: 'Hurrá!',
+            description: 'A megosztás állapota sikeresen módosítva.',
+          },
+          deleteToast: {
+            title: 'Hurrá!',
+            description: 'A szinkronizálás sikeresen törölve.',
+          },
+          changeIntervalToast: {
+            title: 'Hurrá!',
+            description: 'A szinkronizálás időköze sikeresen módosítva.',
+          },
+          changeInterval: 'Időköz módosítása',
+          delete: 'Törlés',
+          changeIntervalDialog: {
+            header: 'Időköz módosítása',
+            text: 'Válaszd ki az új időközt a szinkronizáláshoz. Kattints a mentésre, ha kész vagy.',
+            interval: 'Időköz',
+            buttonText: 'Mentés',
+          },
+        },
       },
       welcome: 'Üdvözöllek,',
     },
@@ -442,7 +513,7 @@ export const hu = {
         buttonText: 'Módosítások mentése',
       },
       sharedWithYou: 'megosztott egy lejátszási listát veled.',
-      openOn: 'Lejátszási lista megnyitása a(z):',
+      openOn: 'Lejátszási lista megnyitása itt:',
       importIntoMyLibraryButtonText: 'Importálás a könyvtáramba',
     },
 
@@ -473,7 +544,23 @@ export const hu = {
       },
     },
 
+    sync: {
+      source: 'FORRÁS',
+      destination: 'CÉL',
+      interval: 'IDŐKÖZ',
+      hourly: 'Óránként',
+      daily: 'Naponta',
+      weekly: 'Heti',
+      syncSuccessfulToast: {
+        title: 'Hurrá!',
+        description: 'A szinkronizálás sikeresen végrehajtva.',
+      },
+      intervalPlaceholder: 'Válassz időközt',
+      syncButtonText: 'Szinkronizálás',
+    },
+
     termsOfService: {
+      header: 'Felhasználási feltételek',
       firstHeader: '1. Feltételek',
       firstText: 'A https://www.movesong.com weboldal elérésével Ön elfogadja a jelen szolgáltatási feltételeket, az összes vonatkozó törvényt és szabályozást, és egyetért azzal, hogy Ön felelős az alkalmazandó helyi törvények betartásáért. Ha nem ért egyet ezen feltételek bármelyikével, tilos a webhely használata vagy elérése. A weboldalon található anyagok a vonatkozó szerzői jogi és védjegyjogi törvények által védettek.',
       secondHeader: '2. Használati engedély',
@@ -510,7 +597,7 @@ export const hu = {
 
     privacyPolicy: {
       header: 'Adatvédelmi irányelvek',
-      text: 'Az Ön adatainak védelme fontos számunkra. A Movesong célja, hogy tiszteletben tartsa az Ön magánéletét minden olyan információval kapcsolatban, amelyet gyűjthetünk Öntől a weboldalunkon, https://www.tunemymusic.com.<br/>' +
+      text: 'Az Ön adatainak védelme fontos számunkra. A Movesong célja, hogy tiszteletben tartsa az Ön magánéletét minden olyan információval kapcsolatban, amelyet gyűjthetünk Öntől a weboldalunkon, https://www.movesong.com.<br/>' +
         '<br/>' +
         'Nem gyűjtünk semmilyen személyes adatot. Csak akkor kérünk információt, ha valóban szükség van rá a szolgáltatás nyújtásához. Tisztességes és törvényes módon gyűjtjük az információkat az Ön tudtával és beleegyezésével. Azt is tudatjuk Önnel, miért gyűjtjük ezeket, és hogyan használjuk fel azokat.<br/>' +
         '<br/>' +

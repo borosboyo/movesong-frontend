@@ -30,8 +30,8 @@ import { PrivacyPolicyPanel } from '@/modules/privacypolicy/privacy-policy-panel
 import { TransformProvider } from '@/core/hooks/useTransform.tsx';
 import { CustomerIdProvider } from '@/modules/premium/customer-context.tsx';
 
+// DEPRECATED
 const RouterBuilder = () => {
-
   const errorRoute: RouteObject[] = [
     {
       path: '*', // Catch-all route for undefined paths
@@ -66,78 +66,91 @@ const RouterBuilder = () => {
     },
     {
       path: '/movesong-frontend/profile',
-      element:
+      element: (
         <PrivateRoute>
           <ProfilePanel />
-        </PrivateRoute>,
+        </PrivateRoute>
+      ),
     },
     {
       path: '/movesong-frontend/profile/new-connection',
-      element:
+      element: (
         <PrivateRoute>
           <NewConnectionPanel />
-        </PrivateRoute>,
+        </PrivateRoute>
+      ),
     },
     {
       path: '/movesong-frontend/profile/youtube-connected',
-      element:
+      element: (
         <PrivateRoute>
           <YoutubeConnectedPanel />
-        </PrivateRoute>,
+        </PrivateRoute>
+      ),
     },
     {
       path: '/movesong-frontend/profile/spotify-connected',
-      element: <PrivateRoute>
-        <SpotifyConnectedPanel />
-      </PrivateRoute>,
+      element: (
+        <PrivateRoute>
+          <SpotifyConnectedPanel />
+        </PrivateRoute>
+      ),
     },
     {
       path: '/movesong-frontend/transform',
-      element:
+      element: (
         <PrivateRoute>
           <TransformProvider>
             <TransformPanel />
           </TransformProvider>
-        </PrivateRoute>,
+        </PrivateRoute>
+      ),
     },
     {
       path: '/movesong-frontend/transform/finish',
-      element:
+      element: (
         <PrivateRoute>
           <TransformProvider>
             <FinishPanel />
           </TransformProvider>
         </PrivateRoute>
-      ,
+      ),
     },
     {
       path: '/movesong-frontend/premium',
-      element:
+      element: (
         <CustomerIdProvider>
           <PremiumPanel />
-        </CustomerIdProvider>,
+        </CustomerIdProvider>
+      ),
     },
     {
       path: 'movesong-frontend/premium/success',
-      element:
+      element: (
         <PrivateRoute>
           <CustomerIdProvider>
             <PremiumSuccessPanel />
           </CustomerIdProvider>
-        </PrivateRoute>,
+        </PrivateRoute>
+      ),
     },
     {
       path: '/movesong-frontend/premium/cancel',
-      element:
+      element: (
         <PrivateRoute>
           <CustomerIdProvider>
             <PremiumCancelPanel />
           </CustomerIdProvider>
-        </PrivateRoute>,
+        </PrivateRoute>
+      ),
     },
     {
       path: '/movesong-frontend/share/:shareId',
-      element: <SharePanel />,
+      element: (
+        <TransformProvider>
+          <SharePanel />
+        </TransformProvider>
+      ),
     },
   ];
 
@@ -159,7 +172,6 @@ const RouterBuilder = () => {
       ),
     },
   ];
-
 
   const registerRoutes: RouteObject[] = [
     {
@@ -187,7 +199,6 @@ const RouterBuilder = () => {
       ),
     },
   ];
-
 
   const forgotPasswordRoutes: RouteObject[] = [
     {
@@ -219,14 +230,7 @@ const RouterBuilder = () => {
   const routes: RouteObject[] = [
     {
       element: <AppLayout />,
-      children: [
-        ...errorRoute,
-        ...generalRoutes,
-        ...loginRoutes,
-        ...forgotPasswordRoutes,
-        ...registerRoutes,
-      ],
-
+      children: [...errorRoute, ...generalRoutes, ...loginRoutes, ...forgotPasswordRoutes, ...registerRoutes],
     },
   ];
 
